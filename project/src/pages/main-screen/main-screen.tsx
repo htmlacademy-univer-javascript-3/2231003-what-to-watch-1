@@ -1,6 +1,6 @@
 import React from 'react';
 import {PropsWithChildren} from 'react';
-import type {PromoFilmInfo} from '../../components/app/app';
+import type {PromoFilmInfo} from '../../types/promo-film-info';
 import FilmCard from '../../components/filmCard/film-card';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
@@ -14,7 +14,7 @@ type MainScreenProps = PropsWithChildren<{
 function MainScreen(props: MainScreenProps): JSX.Element {
   const {promoFilmInfo} = props;
   return (
-    <React.Fragment>
+    <>
       <section className="film-card">
         <div className="film-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt={promoFilmInfo.name}/>
@@ -107,7 +107,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            {new Array(FILM_CARDS_COUNT).fill(0).map(FilmCard)}
+            {Array.from(new Array(FILM_CARDS_COUNT), FilmCard)}
           </div>
 
           <div className="catalog__more">
@@ -116,7 +116,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
         </section>
         <Footer/>
       </div>
-    </React.Fragment>
+    </>
   );
 }
 

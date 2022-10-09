@@ -7,7 +7,7 @@ const FILM_CARDS_COUNT = 4;
 
 function MoviePageScreen(): JSX.Element {
   return (
-    <React.Fragment>
+    <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
@@ -119,7 +119,8 @@ function MoviePageScreen(): JSX.Element {
         </section>
         <Footer/>
       </div>
-    </React.Fragment>);
+    </>
+  );
 }
 
 export default MoviePageScreen;

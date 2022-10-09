@@ -89,7 +89,8 @@ function AddReviewScreen(): JSX.Element {
         </form>
       </div>
 
-    </section>);
+    </section>
+  );
 }
 
 export default AddReviewScreen;

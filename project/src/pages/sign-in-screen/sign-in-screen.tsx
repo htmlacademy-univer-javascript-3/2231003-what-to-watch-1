@@ -30,7 +30,8 @@ function SignIn(): JSX.Element {
         </form>
       </div>
       <Footer/>
-    </div>);
+    </div>
+  );
 }
 
 export default SignIn;

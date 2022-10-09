@@ -31,7 +31,8 @@ function ListScreen(): JSX.Element {
         </div>
       </section>
       <Footer/>
-    </div>)
+    </div>
+  );
 }
 
 export default ListScreen;

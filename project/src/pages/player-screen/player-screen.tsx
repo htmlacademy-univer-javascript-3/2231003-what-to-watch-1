@@ -31,7 +31,8 @@ function PlayerScreen(): JSX.Element {
           </button>
         </div>
       </div>
-    </div>);
+    </div>
+  );
 }
 
 export default PlayerScreen;
