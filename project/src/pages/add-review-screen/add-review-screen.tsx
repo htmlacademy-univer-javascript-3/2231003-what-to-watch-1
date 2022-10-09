@@ -37,8 +37,7 @@ function AddReviewScreen(): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
-               height="327"/>
+          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327"/>
         </div>
       </div>
 
@@ -79,8 +78,7 @@ function AddReviewScreen(): JSX.Element {
           </div>
 
           <div className="add-review__text">
-          <textarea className="add-review__textarea" name="review-text" id="review-text"
-                    placeholder="Review text"></textarea>
+            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"/>
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit">Post</button>
             </div>
