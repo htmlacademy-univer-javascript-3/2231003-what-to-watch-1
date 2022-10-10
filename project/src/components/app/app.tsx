@@ -12,7 +12,6 @@ import PrivateRoute from '../private-route/private-route';
 
 type Props = {
   promoFilmInfo: PromoFilmInfo,
-  children?: JSX.Element;
 }
 
 function App(props: Props): JSX.Element {

@@ -8,7 +8,6 @@ const FILM_CARDS_COUNT = 20;
 
 type Props = {
   promoFilmInfo: PromoFilmInfo,
-  children?: JSX.Element;
 }
 
 function MainScreen(props: Props): JSX.Element {
