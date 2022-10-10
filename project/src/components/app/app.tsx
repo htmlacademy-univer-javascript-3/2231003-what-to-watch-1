@@ -6,14 +6,14 @@ import Film from '../../pages/movie-page-screen/movie-page-screen';
 import Player from '../../pages/player-screen/player-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import type {PromoFilmInfo} from '../../types/promo-film-info';
-import {PropsWithChildren} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 
-type Props = PropsWithChildren<{
+type Props = {
   promoFilmInfo: PromoFilmInfo,
-}>
+  children?: JSX.Element;
+}
 
 function App(props: Props): JSX.Element {
   return (

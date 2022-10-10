@@ -1,17 +1,17 @@
 import React from 'react';
-import {PropsWithChildren} from 'react';
 import type {PromoFilmInfo} from '../../types/promo-film-info';
-import FilmCard from '../../components/filmCard/film-card';
+import FilmCard from '../../components/film-card/film-card';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 
 const FILM_CARDS_COUNT = 20;
 
-type MainScreenProps = PropsWithChildren<{
+type Props = {
   promoFilmInfo: PromoFilmInfo,
-}>
+  children?: JSX.Element;
+}
 
-function MainScreen(props: MainScreenProps): JSX.Element {
+function MainScreen(props: Props): JSX.Element {
   const {promoFilmInfo} = props;
   return (
     <>
