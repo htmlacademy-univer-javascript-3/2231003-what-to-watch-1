@@ -17,7 +17,8 @@ function HeadGuestScreen(): JSX.Element {
         </div>
       </header>
 
-    </section>);
+    </section>
+  );
 }
 
 export default HeadGuestScreen;

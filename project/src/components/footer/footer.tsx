@@ -12,7 +12,8 @@ function Footer(): JSX.Element {
       <div className="copyright">
         <p>© 2019 What to watch Ltd.</p>
       </div>
-    </footer>);
+    </footer>
+  );
 }
 
 export default Footer;

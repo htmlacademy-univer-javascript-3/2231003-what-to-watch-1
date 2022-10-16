@@ -1,6 +1,6 @@
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
-import FilmCard from "../../components/filmCard/film-card";
+import FilmCard from '../../components/film-card/film-card';
 
 const FILM_CARDS_COUNT = 9;
 
@@ -31,7 +31,8 @@ function ListScreen(): JSX.Element {
         </div>
       </section>
       <Footer/>
-    </div>)
+    </div>
+  );
 }
 
 export default ListScreen;
