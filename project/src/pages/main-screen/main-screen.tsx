@@ -1,5 +1,5 @@
 import React from 'react';
-import type {PromoFilmInfo} from '../../types/promo-film-info';
+import type {FilmInfo} from '../../types/film-info';
 import FilmCard from '../../components/film-card/film-card';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
@@ -7,10 +7,10 @@ import Logo from '../../components/logo/logo';
 const FILM_CARDS_COUNT = 20;
 
 type Props = {
-  promoFilmInfo: PromoFilmInfo,
+  promoFilmInfo: FilmInfo,
 }
 
-function MainScreen(props: Props): JSX.Element {
+const MainScreen: React.FC<Props> = (props) => {
   const {promoFilmInfo} = props;
   return (
     <>
@@ -117,6 +117,6 @@ function MainScreen(props: Props): JSX.Element {
       </div>
     </>
   );
-}
+};
 
 export default MainScreen;
