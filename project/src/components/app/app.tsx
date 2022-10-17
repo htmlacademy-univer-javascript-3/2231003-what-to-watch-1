@@ -13,16 +13,18 @@ import PrivateRoute from '../private-route/private-route';
 
 type Props = {
   promoFilmInfo: FilmInfo,
+  films: FilmInfo[]
 }
 
 const App: React.FC<Props> = (props) => {
+  const {films, promoFilmInfo} = props;
   return (
     <Routes>
       <Route
         path={AppRoute.MyList}
         element={
           <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-            <MyList/>
+            <MyList filmsInfos={films}/>
           </PrivateRoute>
         }
       />
@@ -32,24 +34,24 @@ const App: React.FC<Props> = (props) => {
       />
       <Route
         path={AppRoute.Root}
-        element={<MainScreen promoFilmInfo={props.promoFilmInfo}/>}
+        element={<MainScreen promoFilmInfo={promoFilmInfo} filmsInfos={films}/>}
       />
       <Route
         path={AppRoute.Film}
         element={
-          <Film/>
+          <Film filmInfo={films[0]} filmsInfos={films}/>
         }
       />
       <Route
         path={AppRoute.AddReview}
         element={
-          <AddReview/>
+          <AddReview filmInfo={films[0]}/>
         }
       />
       <Route
         path={AppRoute.Player}
         element={
-          <Player/>
+          <Player filmInfo={films[0]}/>
         }
       />
       <Route

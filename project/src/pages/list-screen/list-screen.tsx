@@ -1,10 +1,17 @@
+import React from 'react';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
-import FilmCard from '../../components/film-card/film-card';
+import {FilmInfo} from '../../types/film-info';
+import FilmList from '../../components/film-list/film-list';
 
 const FILM_CARDS_COUNT = 9;
 
-function ListScreen(): JSX.Element {
+type Props = {
+  filmsInfos: FilmInfo[],
+}
+
+const ListScreen: React.FC<Props> = (props) => {
+  const {filmsInfos} = props;
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -27,12 +34,12 @@ function ListScreen(): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          {new Array(FILM_CARDS_COUNT).fill(0).map(FilmCard)}
+          <FilmList filmsInfos={filmsInfos.splice(0, FILM_CARDS_COUNT)}/>
         </div>
       </section>
       <Footer/>
     </div>
   );
-}
+};
 
 export default ListScreen;
