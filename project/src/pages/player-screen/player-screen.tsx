@@ -1,15 +1,16 @@
 import React from 'react';
-import {FilmInfo} from '../../types/film-info';
+import {Film} from '../../types/film';
 
 type Props = {
-  filmInfo: FilmInfo,
+  film: Film,
 }
 
 const PlayerScreen: React.FC<Props> = (props) => {
-  const {filmInfo} = props;
+  const {film} = props;
+
   return (
     <div className="player">
-      <video src={filmInfo.videoLink} className="player__video" poster={filmInfo.previewVideoLink}></video>
+      <video src={film.videoLink} className="player__video" poster={film.previewVideoLink}></video>
 
       <button type="button" className="player__exit">Exit</button>
 

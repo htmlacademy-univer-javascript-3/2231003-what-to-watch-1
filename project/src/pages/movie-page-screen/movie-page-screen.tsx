@@ -1,24 +1,25 @@
 import React from 'react';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
-import {FilmInfo} from '../../types/film-info';
+import {Film} from '../../types/film';
 import FilmList from '../../components/film-list/film-list';
 
 const FILM_CARDS_COUNT = 4;
 
 type Props = {
-  filmInfo: FilmInfo,
-  filmsInfos: FilmInfo[],
+  film: Film,
+  films: Film[],
 }
 
 const MoviePageScreen: React.FC<Props> = (props) => {
-  const {filmInfo, filmsInfos} = props;
+  const {film, films} = props;
+
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={filmInfo.posterImage} alt={filmInfo.name}/>
+            <img src={film.posterImage} alt={film.name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -40,10 +41,10 @@ const MoviePageScreen: React.FC<Props> = (props) => {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{filmInfo.name}</h2>
+              <h2 className="film-card__title">{film.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{filmInfo.genre}</span>
-                <span className="film-card__year">{filmInfo.released}</span>
+                <span className="film-card__genre">{film.genre}</span>
+                <span className="film-card__year">{film.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -69,7 +70,7 @@ const MoviePageScreen: React.FC<Props> = (props) => {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={filmInfo.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327"/>
+              <img src={film.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327"/>
             </div>
 
             <div className="film-card__desc">
@@ -88,7 +89,7 @@ const MoviePageScreen: React.FC<Props> = (props) => {
               </nav>
 
               <div className="film-rating">
-                <div className="film-rating__score">{filmInfo.rating}</div>
+                <div className="film-rating__score">{film.rating}</div>
                 <p className="film-rating__meta">
                   <span className="film-rating__level">Very good</span>
                   <span className="film-rating__count">240 ratings</span>
@@ -96,9 +97,9 @@ const MoviePageScreen: React.FC<Props> = (props) => {
               </div>
 
               <div className="film-card__text">
-                <p>{filmInfo.description}</p>
-                <p className="film-card__director"><strong>{filmInfo.director}</strong></p>
-                <p className="film-card__starring"><strong>{filmInfo.starring}</strong></p>
+                <p>{film.description}</p>
+                <p className="film-card__director"><strong>{film.director}</strong></p>
+                <p className="film-card__starring"><strong>{film.starring}</strong></p>
               </div>
             </div>
           </div>
@@ -108,7 +109,7 @@ const MoviePageScreen: React.FC<Props> = (props) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList filmsInfos={filmsInfos.splice(0,FILM_CARDS_COUNT)}/>
+          <FilmList films={films.splice(0,FILM_CARDS_COUNT)}/>
         </section>
         <Footer/>
       </div>

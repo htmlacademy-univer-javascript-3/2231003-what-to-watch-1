@@ -1,17 +1,18 @@
 import React from 'react';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
-import {FilmInfo} from '../../types/film-info';
+import {Film} from '../../types/film';
 import FilmList from '../../components/film-list/film-list';
 
 const FILM_CARDS_COUNT = 9;
 
 type Props = {
-  filmsInfos: FilmInfo[],
+  films: Film[],
 }
 
 const ListScreen: React.FC<Props> = (props) => {
-  const {filmsInfos} = props;
+  const {films} = props;
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -34,7 +35,7 @@ const ListScreen: React.FC<Props> = (props) => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          <FilmList filmsInfos={filmsInfos.splice(0, FILM_CARDS_COUNT)}/>
+          <FilmList films={films.splice(0, FILM_CARDS_COUNT)}/>
         </div>
       </section>
       <Footer/>

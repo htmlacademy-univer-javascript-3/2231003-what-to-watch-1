@@ -1,6 +1,6 @@
-import type {FilmInfo} from '../types/film-info';
+import type {Film} from '../types/film';
 
-const films: FilmInfo[] = [
+const films: Film[] = [
   {
     id: 1,
     name: 'The Grand Budapest Hotel',

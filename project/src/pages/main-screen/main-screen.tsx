@@ -1,5 +1,5 @@
 import React from 'react';
-import type {FilmInfo} from '../../types/film-info';
+import type {Film} from '../../types/film';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import FilmList from '../../components/film-list/film-list';
@@ -7,17 +7,18 @@ import FilmList from '../../components/film-list/film-list';
 const FILM_CARDS_COUNT = 20;
 
 type Props = {
-  promoFilmInfo: FilmInfo,
-  filmsInfos: FilmInfo[],
+  promoFilm: Film,
+  films: Film[],
 }
 
 const MainScreen: React.FC<Props> = (props) => {
-  const {promoFilmInfo, filmsInfos} = props;
+  const {promoFilm, films} = props;
+
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={promoFilmInfo.name}/>
+          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={promoFilm.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -45,8 +46,8 @@ const MainScreen: React.FC<Props> = (props) => {
             <div className="film-card__desc">
               <h2 className="film-card__title">The Grand Budapest Hotel</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{promoFilmInfo.genre}</span>
-                <span className="film-card__year">{promoFilmInfo.released}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -107,7 +108,7 @@ const MainScreen: React.FC<Props> = (props) => {
           </ul>
 
           <div className="catalog__films-list">
-            <FilmList filmsInfos={filmsInfos.slice(0,FILM_CARDS_COUNT)}/>
+            <FilmList films={films.slice(0,FILM_CARDS_COUNT)}/>
           </div>
 
           <div className="catalog__more">

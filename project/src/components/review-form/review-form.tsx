@@ -18,6 +18,7 @@ const ReviewForm: React.FC = () => {
 
   const ratingStars = [...Array(STARS_COUNT)].map((_, index) => {
     const currentStar = STARS_COUNT - index;
+
     return (
       <Fragment key={currentStar}>
         <input

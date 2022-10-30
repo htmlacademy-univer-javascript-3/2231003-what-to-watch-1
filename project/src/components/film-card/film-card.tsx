@@ -1,25 +1,26 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {FilmInfo} from '../../types/film-info';
+import {Film} from '../../types/film';
 
 type Props = {
-  filmInfo: FilmInfo,
-  setActiveFilm: (film: FilmInfo) => void,
+  film: Film,
+  setActiveFilm: (film: Film) => void,
 }
 
 const FilmCard: React.FC<Props> = (props) => {
-  const {filmInfo, setActiveFilm} = props;
+  const {film, setActiveFilm} = props;
+
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseEnter={() => setActiveFilm(filmInfo)}
-      onMouseLeave={() => setActiveFilm({} as FilmInfo)}
+      onMouseEnter={() => setActiveFilm(film)}
+      onMouseLeave={() => setActiveFilm({} as Film)}
     >
       <div className="small-film-card__image">
-        <img src={filmInfo.previewImage} alt={filmInfo.name} width="280" height="175"/>
+        <img src={film.previewImage} alt={film.name} width="280" height="175"/>
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${filmInfo.id}`}>{filmInfo.name}</Link>
+        <Link className="small-film-card__link" to={`/films/${film.id}`}>{film.name}</Link>
       </h3>
     </article>
   );

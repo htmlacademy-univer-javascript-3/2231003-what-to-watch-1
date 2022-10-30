@@ -1,20 +1,21 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
-import {FilmInfo} from '../../types/film-info';
+import {Film} from '../../types/film';
 import ReviewForm from '../../components/review-form/review-form';
 
 type Props = {
-  filmInfo: FilmInfo,
+  film: Film,
 }
 
 const AddReviewScreen: React.FC<Props> = (props) => {
-  const {filmInfo} = props;
+  const {film} = props;
+
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={filmInfo.backgroundImage} alt={filmInfo.name}/>
+          <img src={film.backgroundImage} alt={film.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -25,7 +26,7 @@ const AddReviewScreen: React.FC<Props> = (props) => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${filmInfo.id}`} className="breadcrumbs__link">{filmInfo.name}</Link>
+                <Link to={`/films/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -46,7 +47,7 @@ const AddReviewScreen: React.FC<Props> = (props) => {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={filmInfo.posterImage} alt={`${filmInfo.name} poster`} width="218" height="327"/>
+          <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327"/>
         </div>
       </div>
 

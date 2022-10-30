@@ -4,27 +4,28 @@ import MainScreen from '../../pages/main-screen/main-screen';
 import AddReview from '../../pages/add-review-screen/add-review-screen';
 import SignIn from '../../pages/sign-in-screen/sign-in-screen';
 import MyList from '../../pages/list-screen/list-screen';
-import Film from '../../pages/movie-page-screen/movie-page-screen';
+import Movie from '../../pages/movie-page-screen/movie-page-screen';
 import Player from '../../pages/player-screen/player-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import type {FilmInfo} from '../../types/film-info';
+import type {Film} from '../../types/film';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 
 type Props = {
-  promoFilmInfo: FilmInfo,
-  films: FilmInfo[]
+  promoFilm: Film,
+  films: Film[]
 }
 
 const App: React.FC<Props> = (props) => {
-  const {films, promoFilmInfo} = props;
+  const {films, promoFilm} = props;
+
   return (
     <Routes>
       <Route
         path={AppRoute.MyList}
         element={
           <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-            <MyList filmsInfos={films}/>
+            <MyList films={films}/>
           </PrivateRoute>
         }
       />
@@ -34,24 +35,24 @@ const App: React.FC<Props> = (props) => {
       />
       <Route
         path={AppRoute.Root}
-        element={<MainScreen promoFilmInfo={promoFilmInfo} filmsInfos={films}/>}
+        element={<MainScreen promoFilm={promoFilm} films={films}/>}
       />
       <Route
         path={AppRoute.Film}
         element={
-          <Film filmInfo={films[0]} filmsInfos={films}/>
+          <Movie film={films[0]} films={films}/>
         }
       />
       <Route
         path={AppRoute.AddReview}
         element={
-          <AddReview filmInfo={films[0]}/>
+          <AddReview film={films[0]}/>
         }
       />
       <Route
         path={AppRoute.Player}
         element={
-          <Player filmInfo={films[0]}/>
+          <Player film={films[0]}/>
         }
       />
       <Route
