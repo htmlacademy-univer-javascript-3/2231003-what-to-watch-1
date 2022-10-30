@@ -1,7 +1,16 @@
-function PlayerScreen(): JSX.Element {
+import React from 'react';
+import {Film} from '../../types/film';
+
+type Props = {
+  film: Film,
+}
+
+const PlayerScreen: React.FC<Props> = (props) => {
+  const {film} = props;
+
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={film.videoLink} className="player__video" poster={film.previewVideoLink}></video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -33,6 +42,6 @@ function PlayerScreen(): JSX.Element {
       </div>
     </div>
   );
-}
+};
 
 export default PlayerScreen;
