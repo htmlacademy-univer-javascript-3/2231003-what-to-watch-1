@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState,} from 'react';
 import {Link} from 'react-router-dom';
 import {Film} from '../../types/film';
+import Player from '../Player/Player';
+
+const TIME_PLAYING = 1000;
 
 type Props = {
   film: Film,
@@ -9,15 +12,36 @@ type Props = {
 
 const FilmCard: React.FC<Props> = (props) => {
   const {film, setActiveFilm} = props;
+  const [isPlay, setPlay] = useState(false);
+  const [needPlay, setNeedPlay] = useState(false);
+
+  useEffect(() => {
+    let needUpdate = true;
+
+    if (needPlay) {
+      setTimeout(() => needUpdate && setPlay(true), TIME_PLAYING);
+    }
+
+    return () => {needUpdate = false;};
+  }, [needPlay]);
+
+  const handleUnsetActiveFilm = () => {
+    setActiveFilm({} as Film)
+    setNeedPlay(false);
+    setPlay(false);
+  };
 
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseEnter={() => setActiveFilm(film)}
-      onMouseLeave={() => setActiveFilm({} as Film)}
+      onMouseEnter={() => {
+        setActiveFilm(film);
+        setNeedPlay(true);
+      }}
+      onMouseLeave={handleUnsetActiveFilm}
     >
       <div className="small-film-card__image">
-        <img src={film.previewImage} alt={film.name} width="280" height="175"/>
+        <Player film={film} isPlay={isPlay}/>
       </div>
       <h3 className="small-film-card__title">
         <Link className="small-film-card__link" to={`/films/${film.id}`}>{film.name}</Link>

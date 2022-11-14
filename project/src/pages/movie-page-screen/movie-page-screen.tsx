@@ -3,23 +3,26 @@ import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import {Film} from '../../types/film';
 import FilmList from '../../components/film-list/film-list';
+import Tabs from '../../components/tabs/tabs';
+import {Comment} from '../../types/comment';
 
 const FILM_CARDS_COUNT = 4;
 
 type Props = {
   film: Film,
   films: Film[],
+  comments: Comment[]
 }
 
 const MoviePageScreen: React.FC<Props> = (props) => {
-  const {film, films} = props;
+  const {film, films, comments} = props;
 
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.posterImage} alt={film.name}/>
+            <img src={film.backgroundImage} alt={film.name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -72,36 +75,7 @@ const MoviePageScreen: React.FC<Props> = (props) => {
             <div className="film-card__poster film-card__poster--big">
               <img src={film.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327"/>
             </div>
-
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="film-rating">
-                <div className="film-rating__score">{film.rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">240 ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>{film.description}</p>
-                <p className="film-card__director"><strong>{film.director}</strong></p>
-                <p className="film-card__starring"><strong>{film.starring}</strong></p>
-              </div>
-            </div>
+            <Tabs film={film} comments={comments} />
           </div>
         </div>
       </section>
@@ -109,7 +83,7 @@ const MoviePageScreen: React.FC<Props> = (props) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList films={films.splice(0,FILM_CARDS_COUNT)}/>
+          <FilmList films={films.filter((movies) => movies.genre === film.genre).splice(0, FILM_CARDS_COUNT)}/>
         </section>
         <Footer/>
       </div>

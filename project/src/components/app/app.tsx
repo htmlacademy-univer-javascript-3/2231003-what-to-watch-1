@@ -10,14 +10,16 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import type {Film} from '../../types/film';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../private-route/private-route';
+import {Comment} from '../../types/comment';
 
 type Props = {
   promoFilm: Film,
-  films: Film[]
+  films: Film[],
+  comments: Comment[]
 }
 
 const App: React.FC<Props> = (props) => {
-  const {films, promoFilm} = props;
+  const {films, promoFilm, comments} = props;
 
   return (
     <Routes>
@@ -40,7 +42,7 @@ const App: React.FC<Props> = (props) => {
       <Route
         path={AppRoute.Film}
         element={
-          <Movie film={films[0]} films={films}/>
+          <Movie film={films[0]} films={films} comments={comments}/>
         }
       />
       <Route
