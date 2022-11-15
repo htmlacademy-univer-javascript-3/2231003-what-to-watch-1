@@ -1,18 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {TypedUseSelectorHook, useSelector} from 'react-redux';
 import type {Film} from '../../types/film';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import FilmList from '../../components/film-list/film-list';
+import GenresList from '../../components/genres-list/genres-list';
+import type { store } from '../../store';
+import ShowMore from '../../components/show-more/show-more';
 
-const FILM_CARDS_COUNT = 20;
+
+const FILM_STEP_COUNT = 8;
+const ALL_GENRES = 'All genres';
 
 type Props = {
   promoFilm: Film,
-  films: Film[],
 }
 
 const MainScreen: React.FC<Props> = (props) => {
-  const {promoFilm, films} = props;
+  const {promoFilm} = props;
+  const useMySelector: TypedUseSelectorHook<ReturnType<typeof store.getState>> = useSelector;
+  const {films, genre} = useMySelector((selector) => selector);
+
+  const [filmsCount, addFilmsCount] = useState(FILM_STEP_COUNT);
+  const showMoreClickHandler = () => {
+    addFilmsCount(FILM_STEP_COUNT + filmsCount);
+  };
+  const filmsCurrentGenre = GetFilmsCurrentGenre(films, genre);
 
   return (
     <>
@@ -73,52 +86,31 @@ const MainScreen: React.FC<Props> = (props) => {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
+          <GenresList genres={GetGenres(films)} currentGenre={genre}/>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
 
           <div className="catalog__films-list">
-            <FilmList films={films.slice(0,FILM_CARDS_COUNT)}/>
+            <FilmList films={filmsCurrentGenre.slice(0, filmsCount)}/>
           </div>
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {filmsCurrentGenre.length > filmsCount && <ShowMore onClick={showMoreClickHandler}/>}
         </section>
         <Footer/>
       </div>
     </>
   );
 };
+
+function GetGenres(films: Film[]): string[] {
+  const genres = new Set<string>(films.map((film) => film.genre));
+  genres.add(ALL_GENRES);
+  return Array.from(genres);
+}
+
+function GetFilmsCurrentGenre(films: Film[], genre: string): Film[]{
+  if (genre !== ALL_GENRES){
+    return films.filter((movies) => movies.genre === genre);
+  }
+  return films;
+}
 
 export default MainScreen;

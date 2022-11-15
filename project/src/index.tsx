@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter} from 'react-router-dom';
+import {Provider} from 'react-redux';
 import App from './components/app/app';
 import FILMS from './mocks/films';
 import COMMENTS from './mocks/comments';
+import {store} from './store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -12,7 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App promoFilm={FILMS[0]} films={FILMS} comments={COMMENTS}/>
+      <Provider store={store}>
+        <App promoFilm={FILMS[0]} films={FILMS} comments={COMMENTS}/>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
 );

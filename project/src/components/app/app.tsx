@@ -37,7 +37,7 @@ const App: React.FC<Props> = (props) => {
       />
       <Route
         path={AppRoute.Root}
-        element={<MainScreen promoFilm={promoFilm} films={films}/>}
+        element={<MainScreen promoFilm={promoFilm}/>}
       />
       <Route
         path={AppRoute.Film}
