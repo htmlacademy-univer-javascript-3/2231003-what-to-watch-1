@@ -18,3 +18,7 @@ export enum Tab {
   Details = 'Details',
   Reviews = 'Reviews',
 }
+
+export enum APIRoute {
+  Films = '/films'
+}
