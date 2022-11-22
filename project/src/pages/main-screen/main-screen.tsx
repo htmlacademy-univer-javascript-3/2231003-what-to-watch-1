@@ -25,7 +25,7 @@ const MainScreen: React.FC<Props> = (props) => {
   const showMoreClickHandler = () => {
     addFilmsCount(FILM_STEP_COUNT + filmsCount);
   };
-  const filmsCurrentGenre = GetFilmsCurrentGenre(films, genre);
+  const filmsCurrentGenre = sortFilmsByGenre(films, genre);
 
   return (
     <>
@@ -86,7 +86,7 @@ const MainScreen: React.FC<Props> = (props) => {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresList genres={GetGenres(films)} currentGenre={genre}/>
+          <GenresList genres={extractAvailableGenres(films)} currentGenre={genre}/>
 
 
           <div className="catalog__films-list">
@@ -100,17 +100,17 @@ const MainScreen: React.FC<Props> = (props) => {
   );
 };
 
-function GetGenres(films: Film[]): string[] {
+function extractAvailableGenres(films: Film[]): string[] {
   const genres = new Set<string>(films.map((film) => film.genre));
   genres.add(ALL_GENRES);
   return Array.from(genres);
 }
 
-function GetFilmsCurrentGenre(films: Film[], genre: string): Film[]{
-  if (genre !== ALL_GENRES){
-    return films.filter((movies) => movies.genre === genre);
+function sortFilmsByGenre(films: Film[], genre: string): Film[]{
+  if (genre === ALL_GENRES){
+    return films;
   }
-  return films;
+  return films.filter((movies) => movies.genre === genre);
 }
 
 export default MainScreen;

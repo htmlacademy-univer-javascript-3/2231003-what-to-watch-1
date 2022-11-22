@@ -41,7 +41,7 @@ const FilmCard: React.FC<Props> = (props) => {
       onMouseLeave={handleUnsetActiveFilm}
     >
       <div className="small-film-card__image">
-        <Player film={film} isPlay={isPlay}/>
+        <Player film={film} isPlaying={isPlay}/>
       </div>
       <h3 className="small-film-card__title">
         <Link className="small-film-card__link" to={`/films/${film.id}`}>{film.name}</Link>
