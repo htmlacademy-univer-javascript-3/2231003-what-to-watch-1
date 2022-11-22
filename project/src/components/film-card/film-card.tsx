@@ -26,7 +26,7 @@ const FilmCard: React.FC<Props> = (props) => {
   }, [needPlay]);
 
   const handleUnsetActiveFilm = () => {
-    setActiveFilm({} as Film)
+    setActiveFilm({} as Film);
     setNeedPlay(false);
     setPlay(false);
   };

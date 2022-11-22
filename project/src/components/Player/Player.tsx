@@ -11,7 +11,9 @@ const Player: React.FC<Props> = (props) => {
   const playerRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    if (playerRef === null) return;
+    if (playerRef === null){
+      return;
+    }
     if (isPlay){
       playerRef.current?.play();
     }
