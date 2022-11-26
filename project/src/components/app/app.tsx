@@ -7,19 +7,23 @@ import MyList from '../../pages/list-screen/list-screen';
 import Movie from '../../pages/movie-page-screen/movie-page-screen';
 import Player from '../../pages/player-screen/player-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import type {Film} from '../../types/film';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import {Comment} from '../../types/comment';
+import { useAppSelector } from '../../hooks/index';
+import Load from '../load/load';
 
 type Props = {
-  promoFilm: Film,
-  films: Film[],
   comments: Comment[]
 }
 
 const App: React.FC<Props> = (props) => {
-  const {films, promoFilm, comments} = props;
+  const {comments} = props;
+  const { isFilmsLoaded, films } = useAppSelector((state) => state);
+
+  if (!isFilmsLoaded){
+    return <Load/>;
+  }
 
   return (
     <Routes>
@@ -37,7 +41,7 @@ const App: React.FC<Props> = (props) => {
       />
       <Route
         path={AppRoute.Root}
-        element={<MainScreen promoFilm={promoFilm}/>}
+        element={<MainScreen promoFilm={films[0]}/>}
       />
       <Route
         path={AppRoute.Film}

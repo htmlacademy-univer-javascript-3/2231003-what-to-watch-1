@@ -7,6 +7,7 @@ import FilmList from '../../components/film-list/film-list';
 import GenresList from '../../components/genres-list/genres-list';
 import type { store } from '../../store';
 import ShowMore from '../../components/show-more/show-more';
+import {useAppSelector} from '../../hooks';
 
 
 const FILM_STEP_COUNT = 8;
@@ -17,9 +18,8 @@ type Props = {
 }
 
 const MainScreen: React.FC<Props> = (props) => {
+  const {films, genre} = useAppSelector((state) => state);
   const {promoFilm} = props;
-  const useMySelector: TypedUseSelectorHook<ReturnType<typeof store.getState>> = useSelector;
-  const {films, genre} = useMySelector((selector) => selector);
 
   const [filmsCount, addFilmsCount] = useState(FILM_STEP_COUNT);
   const showMoreClickHandler = () => {
