@@ -8,6 +8,7 @@ import GenresList from '../../components/genres-list/genres-list';
 import type { store } from '../../store';
 import ShowMore from '../../components/show-more/show-more';
 import {useAppSelector} from '../../hooks';
+import UserInfo from '../../components/user-info/user-info';
 
 
 const FILM_STEP_COUNT = 8;
@@ -38,16 +39,7 @@ const MainScreen: React.FC<Props> = (props) => {
 
         <header className="page-header film-card__head">
           <Logo/>
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+         <UserInfo/>
         </header>
 
         <div className="film-card__wrap">

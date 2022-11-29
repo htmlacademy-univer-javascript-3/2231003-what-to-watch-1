@@ -19,7 +19,7 @@ type Props = {
 
 const App: React.FC<Props> = (props) => {
   const {comments} = props;
-  const { isFilmsLoaded, films } = useAppSelector((state) => state);
+  const { isFilmsLoaded, films , authorizationStatus} = useAppSelector((state) => state);
 
   if (!isFilmsLoaded){
     return <Load/>;
@@ -30,7 +30,7 @@ const App: React.FC<Props> = (props) => {
       <Route
         path={AppRoute.MyList}
         element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+          <PrivateRoute authorizationStatus={authorizationStatus}>
             <MyList films={films}/>
           </PrivateRoute>
         }

@@ -20,5 +20,7 @@ export enum Tab {
 }
 
 export enum APIRoute {
-  Films = '/films'
+  Films = '/films',
+  Logout = '/logout',
+  Login = '/login'
 }

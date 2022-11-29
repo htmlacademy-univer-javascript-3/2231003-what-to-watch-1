@@ -4,8 +4,9 @@ import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import App from './components/app/app';
 import {store} from './store';
-import { fetchFilmsAction } from './store/api-actions';
+import {fetchFilmsAction, checkAuthAction} from './store/api-actions';
 
+store.dispatch(checkAuthAction());
 store.dispatch(fetchFilmsAction());
 
 const root = ReactDOM.createRoot(

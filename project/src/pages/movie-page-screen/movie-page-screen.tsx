@@ -5,6 +5,7 @@ import {Film} from '../../types/film';
 import FilmList from '../../components/film-list/film-list';
 import Tabs from '../../components/tabs/tabs';
 import {Comment} from '../../types/comment';
+import UserInfo from "../../components/user-info/user-info";
 
 const FILM_CARDS_COUNT = 4;
 
@@ -29,17 +30,7 @@ const MoviePageScreen: React.FC<Props> = (props) => {
 
           <header className="page-header film-card__head">
             <Logo/>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
+            <UserInfo/>
           </header>
 
           <div className="film-card__wrap">
