@@ -6,16 +6,11 @@ import TabItem from '../tab/tabItem';
 import OverviewTab from './overview-tab';
 import DetailsTab from './details-tab';
 import ReviewsTab from './reviews-tab';
-
-type Props = {
-  film: Film,
-  comments: Comment[]
-}
+import {useAppSelector} from "../../hooks";
 
 
-const Tabs: React.FC<Props> = (props) => {
-  const {film, comments} = props;
-  const [activeTab, setActiveTab] = useState(Tab.Overview);
+const Tabs: React.FC = (props) => {
+  const [activeTab, setActiveTab] = useState(Tab.Details);
 
   const clickTabHandler = (tab: Tab) => {
     setActiveTab(tab);
@@ -29,9 +24,9 @@ const Tabs: React.FC<Props> = (props) => {
           <TabItem key={Tab.Reviews} isActive={Tab.Reviews === activeTab} tabType={Tab.Reviews} onClick={clickTabHandler}/>
         </ul>
       </nav>
-      {activeTab === Tab.Overview && <OverviewTab film={film}/>}
-      {activeTab === Tab.Details && <DetailsTab film={film}/>}
-      {activeTab === Tab.Reviews && <ReviewsTab comments={comments}/>}
+      {activeTab === Tab.Overview && <OverviewTab />}
+      {activeTab === Tab.Details && <DetailsTab />}
+      {activeTab === Tab.Reviews && <ReviewsTab />}
     </div>
   );
 };

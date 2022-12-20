@@ -4,13 +4,11 @@ import Logo from '../../components/logo/logo';
 import UserInfo from '../../components/user-info/user-info';
 import {Film} from '../../types/film';
 import ReviewForm from '../../components/review-form/review-form';
+import {useAppSelector} from "../../hooks";
 
-type Props = {
-  film: Film,
-}
 
-const AddReviewScreen: React.FC<Props> = (props) => {
-  const {film} = props;
+const AddReviewScreen: React.FC = () => {
+  const {film} = useAppSelector((state) => state);
 
   return (
     <section className="film-card film-card--full">

@@ -6,19 +6,17 @@ import App from './components/app/app';
 import {store} from './store';
 import {fetchFilmsAction, checkAuthAction} from './store/api-actions';
 
-store.dispatch(checkAuthAction());
-store.dispatch(fetchFilmsAction());
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
+store.dispatch(fetchFilmsAction());
+store.dispatch(checkAuthAction());
+
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
       <Provider store={store}>
-        <App comments={[]}/>
+        <App/>
       </Provider>
-    </BrowserRouter>
   </React.StrictMode>,
 );

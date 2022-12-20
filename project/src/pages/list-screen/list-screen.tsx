@@ -4,15 +4,12 @@ import Logo from '../../components/logo/logo';
 import {Film} from '../../types/film';
 import FilmList from '../../components/film-list/film-list';
 import UserInfo from "../../components/user-info/user-info";
+import {useAppSelector} from "../../hooks";
 
 const FILM_CARDS_COUNT = 9;
 
-type Props = {
-  films: Film[],
-}
-
-const ListScreen: React.FC<Props> = (props) => {
-  const {films} = props;
+const ListScreen: React.FC = () => {
+  const {films} = useAppSelector((state) => state);
 
   return (
     <div className="user-page">

@@ -14,13 +14,9 @@ import UserInfo from '../../components/user-info/user-info';
 const FILM_STEP_COUNT = 8;
 const ALL_GENRES = 'All genres';
 
-type Props = {
-  promoFilm: Film,
-}
 
-const MainScreen: React.FC<Props> = (props) => {
-  const {films, genre} = useAppSelector((state) => state);
-  const {promoFilm} = props;
+const MainScreen: React.FC = () => {
+  const {films, genre, promoFilm} = useAppSelector((state) => state);
 
   const [filmsCount, addFilmsCount] = useState(FILM_STEP_COUNT);
   const showMoreClickHandler = () => {
@@ -32,7 +28,7 @@ const MainScreen: React.FC<Props> = (props) => {
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={promoFilm.name}/>
+          <img src={promoFilm?.backgroundImage} alt={promoFilm?.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -45,14 +41,14 @@ const MainScreen: React.FC<Props> = (props) => {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327"/>
+              <img src={promoFilm?.posterImage} alt={promoFilm?.name} width="218" height="327"/>
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">The {promoFilm?.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{promoFilm.genre}</span>
-                <span className="film-card__year">{promoFilm.released}</span>
+                <span className="film-card__genre">{promoFilm?.genre}</span>
+                <span className="film-card__year">{promoFilm?.released}</span>
               </p>
 
               <div className="film-card__buttons">
