@@ -9,13 +9,13 @@ type Props = {
 
 const Genre: React.FC<Props> = (props) => {
   const {genre, isCurrentGenre} = props;
-  const clickHandler = () => {
+  const handleClick = () => {
     store.dispatch(changeGenre({genre: genre}));
   };
 
   return (
     <li className={`catalog__genres-item ${isCurrentGenre ? 'catalog__genres-item--active' : ''}`}>
-      <a href='#' className='catalog__genres-link' onClick={clickHandler}>{genre}</a>
+      <a href='#' className='catalog__genres-link' onClick={handleClick}>{genre}</a>
     </li>
   );
 };

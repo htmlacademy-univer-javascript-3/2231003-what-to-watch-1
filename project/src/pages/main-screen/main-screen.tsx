@@ -22,7 +22,7 @@ const MainScreen: React.FC<Props> = (props) => {
   const {promoFilm} = props;
 
   const [filmsCount, addFilmsCount] = useState(FILM_STEP_COUNT);
-  const showMoreClickHandler = () => {
+  const handleShowMoreClick = () => {
     addFilmsCount(FILM_STEP_COUNT + filmsCount);
   };
   const filmsCurrentGenre = sortFilmsByGenre(films, genre);
@@ -92,7 +92,7 @@ const MainScreen: React.FC<Props> = (props) => {
           <div className="catalog__films-list">
             <FilmList films={filmsCurrentGenre.slice(0, filmsCount)}/>
           </div>
-          {filmsCurrentGenre.length > filmsCount && <ShowMore onClick={showMoreClickHandler}/>}
+          {filmsCurrentGenre.length > filmsCount && <ShowMore onClick={handleShowMoreClick}/>}
         </section>
         <Footer/>
       </div>

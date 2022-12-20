@@ -6,10 +6,10 @@ const ReviewForm: React.FC = () => {
   const [comment, setComment] = useState('');
   const [, setRating] = useState('');
 
-  const commentChangeHandler = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleCommentChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.target.value);
   };
-  const ratingChangeHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRatingChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setRating(evt.target.value);
   };
   const handleSubmit = (evt: React.FocusEvent<HTMLFormElement>) => {
@@ -27,7 +27,7 @@ const ReviewForm: React.FC = () => {
           type="radio"
           name="rating"
           value={currentStar}
-          onChange={ratingChangeHandler}
+          onChange={handleRatingChange}
         />
         <label
           className="rating__label"
@@ -52,7 +52,7 @@ const ReviewForm: React.FC = () => {
           name="review-text"
           id="review-text"
           placeholder="Review text"
-          onChange={commentChangeHandler}
+          onChange={handleCommentChange}
           value={comment}
         >
         </textarea>
