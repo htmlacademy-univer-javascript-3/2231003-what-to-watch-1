@@ -1,15 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import UserInfo from '../../components/user-info/user-info';
 import {Film} from '../../types/film';
 import ReviewForm from '../../components/review-form/review-form';
+import {useAppSelector} from "../../hooks";
 
-type Props = {
-  film: Film,
-}
 
-const AddReviewScreen: React.FC<Props> = (props) => {
-  const {film} = props;
+const AddReviewScreen: React.FC = () => {
+  const {film} = useAppSelector((state) => state);
 
   return (
     <section className="film-card film-card--full">
@@ -33,17 +32,7 @@ const AddReviewScreen: React.FC<Props> = (props) => {
               </li>
             </ul>
           </nav>
-
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <UserInfo/>
         </header>
 
         <div className="film-card__poster film-card__poster--small">

@@ -1,3 +1,5 @@
+import {fetchReviewsAction} from "./store/api-actions";
+
 export enum AppRoute {
   SingIn = '/login',
   MyList = '/mylist',
@@ -20,5 +22,10 @@ export enum Tab {
 }
 
 export enum APIRoute {
-  Films = '/films'
+  Films = '/films',
+  Logout = '/logout',
+  Login = '/login',
+  Reviews = '/comments',
+  Similar = '/similar',
+  Promo = '/promo'
 }

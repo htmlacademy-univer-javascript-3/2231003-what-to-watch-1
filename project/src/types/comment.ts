@@ -8,3 +8,9 @@ export type Comment = {
     name: string
   }
 }
+
+export type SendComment = {
+  comment: string,
+  rating: string,
+  filmId: number | null
+}

@@ -1,16 +1,13 @@
 import React from 'react';
 import {Film} from '../../types/film';
+import {useAppSelector} from "../../hooks";
 
-type Props = {
-  film: Film,
-}
-
-const PlayerScreen: React.FC<Props> = (props) => {
-  const {film} = props;
+const PlayerScreen: React.FC = () => {
+  const {promoFilm} = useAppSelector((state) => state);
 
   return (
     <div className="player">
-      <video src={film.videoLink} className="player__video" poster={film.previewVideoLink}></video>
+      <video src={promoFilm.videoLink} className="player__video" poster={promoFilm.previewVideoLink}></video>
 
       <button type="button" className="player__exit">Exit</button>
 

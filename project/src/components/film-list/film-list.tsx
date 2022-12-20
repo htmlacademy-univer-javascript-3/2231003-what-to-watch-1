@@ -3,7 +3,7 @@ import type {Film} from '../../types/film';
 import FilmCard from '../film-card/film-card';
 
 type Props = {
-  films: Film[],
+  films: Film[] | null,
 }
 
 const FilmList: React.FC<Props> = (props) => {
@@ -16,7 +16,7 @@ const FilmList: React.FC<Props> = (props) => {
 
   return (
     <div className="catalog__films-list">
-      {films.map((film) => <FilmCard key={film.id} film={film} setActiveFilm={activeFilmHandler}/>)}
+      {films?.map((film) => <FilmCard key={film.id} film={film} setActiveFilm={activeFilmHandler}/>)}
     </div>
   );
 };
