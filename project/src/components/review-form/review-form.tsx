@@ -1,10 +1,14 @@
 import React, {Fragment, useState} from 'react';
+import {useAppDispatch, useAppSelector} from "../../hooks";
+import {addReviewAction} from "../../store/api-actions";
 
 const STARS_COUNT = 10;
 
 const ReviewForm: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const {film} = useAppSelector((state) => state);
   const [comment, setComment] = useState('');
-  const [, setRating] = useState('');
+  const [rating, setRating] = useState('');
 
   const handleCommentChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.target.value);
@@ -13,7 +17,8 @@ const ReviewForm: React.FC = () => {
     setRating(evt.target.value);
   };
   const handleSubmit = (evt: React.FocusEvent<HTMLFormElement>) => {
-    throw new Error('kek');
+    evt.preventDefault();
+    dispatch(addReviewAction({ comment: comment, filmId: film?.id, rating: rating }));
   };
 
   const ratingStars = [...Array(STARS_COUNT)].map((_, index) => {
