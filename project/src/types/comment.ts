@@ -12,5 +12,11 @@ export type Comment = {
 export type SendComment = {
   comment: string,
   rating: string,
-  filmId: number | null
+  filmId: number | null | undefined
 }
+
+export type Comments = {
+  filmId: number,
+  comments: Comment[]
+}
+

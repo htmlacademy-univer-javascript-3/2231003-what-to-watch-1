@@ -9,6 +9,10 @@ import type { store } from '../../store';
 import ShowMore from '../../components/show-more/show-more';
 import {useAppSelector} from '../../hooks';
 import UserInfo from '../../components/user-info/user-info';
+import {getPromoFilm, isPromoLoading, getPageFilms, areFilmLoading} from '../../store/general-data/selector';
+import { getGenre } from '../../store/general-data/selector';
+import Load from "../../components/load/load";
+
 
 
 const FILM_STEP_COUNT = 8;
@@ -16,7 +20,15 @@ const ALL_GENRES = 'All genres';
 
 
 const MainScreen: React.FC = () => {
-  const {films, genre, promoFilm} = useAppSelector((state) => state);
+  const films = useAppSelector(getPageFilms);
+  const promoFilm = useAppSelector(getPromoFilm);
+  const promoLoading = useAppSelector(isPromoLoading);
+  const isFilmLoading = useAppSelector(areFilmLoading);
+  const genre = useAppSelector(getGenre);
+  if (promoLoading || isFilmLoading)
+  {
+    return <Load/>;
+  }
 
   const [filmsCount, addFilmsCount] = useState(FILM_STEP_COUNT);
   const handleShowMoreClick = () => {

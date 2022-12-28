@@ -3,10 +3,11 @@ import {Comment} from '../../types/comment';
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {fetchReviewsAction} from "../../store/api-actions";
 import Load from "../load/load";
+import {getFilm} from "../../store/film-data/selector";
+import {getReviews} from "../../store/film-reviews-data/selector";
 
 const ReviewsTab: React.FC = (props) => {
-  const {reviews} = useAppSelector((state) => state);
-  console.log(reviews)
+  const reviews = useAppSelector(getReviews);
 
   return (
     <div className="film-card__reviews film-card__row">

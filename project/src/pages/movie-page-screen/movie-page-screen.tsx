@@ -9,12 +9,13 @@ import Tabs from '../../components/tabs/tabs';
 import {Comment} from '../../types/comment';
 import UserInfo from "../../components/user-info/user-info";
 import {store} from '../../store';
-import {setFilm} from "../../store/action";
-import {fetchFilmAction, fetchReviewsAction} from "../../store/api-actions";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import NotFoundScreen from "../not-found-screen/not-found-screen";
 import Load from "../../components/load/load";
 import {AuthorizationStatus} from "../../const";
+import { fetchFilmAction, fetchSimilarAction } from '../../store/api-actions';
+import { getFilm, isFilmLoading, getSimilarFilms, areSimilarLoading } from '../../store/film-data/selector';
+import { getAuthorizationStatus } from '../../store/user-process/selector';
 
 const FILM_CARDS_COUNT = 4;
 
@@ -23,13 +24,22 @@ const MoviePageScreen: React.FC = () => {
   const {id} = useParams();
 
   useEffect(() => {
-    store.dispatch(fetchFilmAction(id));
-    store.dispatch(fetchReviewsAction(+id));
+    dispatch(fetchFilmAction(id));
+    dispatch(fetchSimilarAction(id));
   }, [id]);
 
-  const { film, similarFilms, isFilmLoaded,isCommentsLoaded, authorizationStatus} = useAppSelector((state) => state);
-  if (!isFilmLoaded || !isCommentsLoaded){
+  const dispatch = useAppDispatch();
+  const similarFilms = useAppSelector(getSimilarFilms);
+  const areSimilarLoading = useAppSelector(areSimilarLoading);
+  const film = useAppSelector(getFilm);
+  const isFilmLoading = useAppSelector(isFilmLoading);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
+  if (areSimilarLoading || isFilmLoading ){
     return <Load/>;
+  }
+  if (id === undefined || film === undefined || getSimilarFilms === undefined) {
+    return <NotFoundScreen />;
   }
 
   return (
