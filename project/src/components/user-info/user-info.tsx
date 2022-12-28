@@ -3,10 +3,12 @@ import {Link} from 'react-router-dom';
 import {useAppSelector, useAppDispatch} from '../../hooks';
 import {AuthorizationStatus} from '../../const';
 import {logoutAction} from '../../store/api-actions';
+import { getAuthorizationStatus } from '../../store/user-process/selector';
 
 
 const UserInfo: React.FC = () => {
-  const {userDate, authorizationStatus} = useAppSelector((state) => state);
+  //const {userDate } = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
 
   const signOutClickHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -27,7 +29,7 @@ const UserInfo: React.FC = () => {
     <ul className="user-block">
       <li className="user-block__item">
         <div className="user-block__avatar">
-          <img src={userDate.avatarUrl} alt="User avatar" width="63" height="63"/>
+          <img  alt="User avatar" width="63" height="63"/>
         </div>
       </li>
       <li className="user-block__item">

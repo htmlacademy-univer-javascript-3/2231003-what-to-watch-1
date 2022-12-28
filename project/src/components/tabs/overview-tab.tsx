@@ -1,10 +1,11 @@
 import React from 'react';
 import {Film} from '../../types/film';
 import {useAppSelector} from "../../hooks";
+import {getFilm} from "../../store/film-data/selector";
 
 
 const OverviewTab: React.FC = (props) => {
-  const {film} = useAppSelector((state) => state);
+  const film = useAppSelector(getFilm);
 
   return (
     <>

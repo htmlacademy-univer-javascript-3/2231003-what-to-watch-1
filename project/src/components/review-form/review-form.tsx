@@ -1,12 +1,13 @@
 import React, {Fragment, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {addReviewAction} from "../../store/api-actions";
+import {getFilm} from "../../store/film-data/selector";
 
 const STARS_COUNT = 10;
 
 const ReviewForm: React.FC = () => {
   const dispatch = useAppDispatch();
-  const {film} = useAppSelector((state) => state);
+  const film = useAppSelector(getFilm);
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
 

@@ -14,12 +14,14 @@ import {useAppSelector} from '../../hooks/index';
 import Load from '../load/load';
 import {browserHistory} from '../../browser-history';
 import {HistoryRouter} from '../history/history';
+import { getAuthorizationStatus } from '../../store/user-process/selector';
+import { areFilmLoading } from '../../store/general-data/selector';
 
 
 const App: React.FC = () => {
-  const {isLoaded, authorizationStatus} = useAppSelector((state) => state);
-
-  if (!isLoaded) {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isDataLoading = useAppSelector(areFilmLoading);
+  if (isDataLoading) {
     return <Load/>;
   }
 

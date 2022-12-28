@@ -1,6 +1,6 @@
 import React from 'react';
 import {store} from '../../store/index';
-import {changeGenre} from '../../store/action';
+import {changeGenreAction} from "../../store/general-data/general-data";
 
 type Props = {
   isCurrentGenre: boolean,
@@ -10,7 +10,7 @@ type Props = {
 const Genre: React.FC<Props> = (props) => {
   const {genre, isCurrentGenre} = props;
   const handleClick = () => {
-    store.dispatch(changeGenre({genre: genre}));
+    store.dispatch(changeGenreAction({genre: genre}));
   };
 
   return (

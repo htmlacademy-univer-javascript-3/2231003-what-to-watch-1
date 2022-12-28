@@ -5,11 +5,18 @@ import {Film} from '../../types/film';
 import FilmList from '../../components/film-list/film-list';
 import UserInfo from "../../components/user-info/user-info";
 import {useAppSelector} from "../../hooks";
+import { getFavoriteFilms, areFavoriteFilmsInLoading } from '../../store/favorite-data/selector';
+import Load from "../../components/load/load";
 
 const FILM_CARDS_COUNT = 9;
 
 const ListScreen: React.FC = () => {
-  const {films} = useAppSelector((state) => state);
+  const films = useAppSelector(getFavoriteFilms);
+  const areInLoading = useAppSelector(areFavoriteFilmsInLoading);
+
+  if (areInLoading) {
+    return <Load />;
+  }
 
   return (
     <div className="user-page">

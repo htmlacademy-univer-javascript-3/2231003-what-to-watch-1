@@ -1,13 +1,15 @@
 import React from 'react';
 import {Film} from '../../types/film';
 import {useAppSelector} from "../../hooks";
+import {getFilm} from "../../store/film-data/selector";
+import {getPromoFilm} from "../../store/general-data/selector";
 
 const PlayerScreen: React.FC = () => {
-  const {promoFilm} = useAppSelector((state) => state);
+  const promoFilm = useAppSelector(getPromoFilm);
 
   return (
     <div className="player">
-      <video src={promoFilm.videoLink} className="player__video" poster={promoFilm.previewVideoLink}></video>
+      <video src={promoFilm?.videoLink} className="player__video" poster={promoFilm?.previewVideoLink}></video>
 
       <button type="button" className="player__exit">Exit</button>
 

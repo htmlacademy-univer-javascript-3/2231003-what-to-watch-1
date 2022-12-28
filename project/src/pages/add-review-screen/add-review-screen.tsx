@@ -5,16 +5,18 @@ import UserInfo from '../../components/user-info/user-info';
 import {Film} from '../../types/film';
 import ReviewForm from '../../components/review-form/review-form';
 import {useAppSelector} from "../../hooks";
+import {getFilm} from "../../store/film-data/selector";
+
 
 
 const AddReviewScreen: React.FC = () => {
-  const {film} = useAppSelector((state) => state);
+  const film = useAppSelector(getFilm);
 
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={film.backgroundImage} alt={film.name}/>
+          <img src={film?.backgroundImage} alt={film?.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -25,7 +27,7 @@ const AddReviewScreen: React.FC = () => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
+                <Link to={`/films/${film?.id}`} className="breadcrumbs__link">{film?.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -36,7 +38,7 @@ const AddReviewScreen: React.FC = () => {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327"/>
+          <img src={film?.posterImage} alt={`${film?.name} poster`} width="218" height="327"/>
         </div>
       </div>
 

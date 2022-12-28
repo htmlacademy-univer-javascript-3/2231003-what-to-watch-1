@@ -6,10 +6,11 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AuthData} from '../../types/auth-data';
 import {loginAction} from '../../store/api-actions';
 import {AppRoute, AuthorizationStatus} from "../../const";
+import { getAuthorizationStatus } from '../../store/user-process/selector';
 
 function SignIn(): JSX.Element {
   const navigate = useNavigate();
-  const { authorizationStatus } = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   if (authorizationStatus === AuthorizationStatus.Auth){
      navigate(AppRoute.Root);
   }
