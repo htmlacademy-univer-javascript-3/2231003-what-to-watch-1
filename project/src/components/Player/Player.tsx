@@ -11,17 +11,16 @@ const Player: React.FC<Props> = (props) => {
   const playerRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    if (!playerRef){
+    if (!playerRef) {
       return;
     }
-    if (isPlaying){
+    if (isPlaying) {
       playerRef.current?.play();
-    }
-    else {
+    } else {
       playerRef.current?.load();
     }
 
-  },[isPlaying]);
+  }, [isPlaying]);
 
   return <video ref={playerRef} width="280" height="175" src={film.videoLink} poster={film.previewImage} muted={true}/>;
 }

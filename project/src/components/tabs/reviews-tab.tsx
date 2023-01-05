@@ -1,13 +1,15 @@
-import React, {useEffect} from 'react';
-import {Comment} from '../../types/comment';
-import {useAppDispatch, useAppSelector} from "../../hooks";
-import {fetchReviewsAction} from "../../store/api-actions";
-import Load from "../load/load";
-import {getFilm} from "../../store/film-data/selector";
-import {getReviews} from "../../store/film-reviews-data/selector";
+import React from 'react';
+import {useAppSelector} from '../../hooks';
+import {getReviews} from '../../store/film-reviews-data/selector';
+import {Months} from '../../const';
 
-const ReviewsTab: React.FC = (props) => {
+const ReviewsTab: React.FC = () => {
   const reviews = useAppSelector(getReviews);
+
+  const getFormatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return `${Months[date.getMonth()]} ${date.getDay()}, ${date.getFullYear()}`;
+  };
 
   return (
     <div className="film-card__reviews film-card__row">
@@ -18,7 +20,7 @@ const ReviewsTab: React.FC = (props) => {
 
               <footer className="review__details">
                 <cite className="review__author">{comment.user.name}</cite>
-                <time className="review__date">{comment.date}</time>
+                <time className="review__date">{getFormatDate(comment.date)}</time>
               </footer>
             </blockquote>
 

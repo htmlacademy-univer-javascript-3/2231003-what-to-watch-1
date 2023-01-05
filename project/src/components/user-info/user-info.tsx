@@ -1,14 +1,15 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useAppSelector, useAppDispatch} from '../../hooks';
-import {AuthorizationStatus} from '../../const';
+import {APIRoute, AuthorizationStatus} from '../../const';
 import {logoutAction} from '../../store/api-actions';
-import { getAuthorizationStatus } from '../../store/user-process/selector';
+import {getAuthorizationStatus, getUserData} from '../../store/user-process/selector';
 
 
 const UserInfo: React.FC = () => {
-  //const {userDate } = useAppSelector((state) => state);
+  const navigate = useNavigate()
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const user = useAppSelector(getUserData);
   const dispatch = useAppDispatch();
 
   const signOutClickHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -29,7 +30,7 @@ const UserInfo: React.FC = () => {
     <ul className="user-block">
       <li className="user-block__item">
         <div className="user-block__avatar">
-          <img  alt="User avatar" width="63" height="63"/>
+          <img src={user?.avatarUrl} alt="User avatar" width="63" height="63" onClick={() => navigate(APIRoute.MyList)}/>
         </div>
       </li>
       <li className="user-block__item">

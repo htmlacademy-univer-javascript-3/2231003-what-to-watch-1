@@ -1,6 +1,6 @@
 import {Navigate} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
 import React from 'react';
+import {AppRoute, AuthorizationStatus} from '../../const';
 
 type Props = {
   authorizationStatus: AuthorizationStatus;

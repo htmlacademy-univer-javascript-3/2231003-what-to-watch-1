@@ -1,21 +1,20 @@
 import React from 'react';
-import {store} from '../../store/index';
-import {changeGenreAction} from "../../store/general-data/general-data";
+import {changeGenreAction} from '../../store/general-data/general-data';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getGenre} from '../../store/general-data/selector';
 
 type Props = {
-  isCurrentGenre: boolean,
   genre: string,
 };
 
 const Genre: React.FC<Props> = (props) => {
-  const {genre, isCurrentGenre} = props;
-  const handleClick = () => {
-    store.dispatch(changeGenreAction({genre: genre}));
-  };
+  const {genre} = props;
+  const dispatch = useAppDispatch();
+  const currentGenre = useAppSelector(getGenre);
 
   return (
-    <li className={`catalog__genres-item ${isCurrentGenre ? 'catalog__genres-item--active' : ''}`}>
-      <a href='#' className='catalog__genres-link' onClick={handleClick}>{genre}</a>
+    <li className={`catalog__genres-item ${genre === currentGenre ? 'catalog__genres-item--active' : ''}`}>
+      <a href='#' className='catalog__genres-link' onClick={() => dispatch(changeGenreAction(genre))}>{genre}</a>
     </li>
   );
 };

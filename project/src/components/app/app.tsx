@@ -7,13 +7,10 @@ import MyList from '../../pages/list-screen/list-screen';
 import Movie from '../../pages/movie-page-screen/movie-page-screen';
 import Player from '../../pages/player-screen/player-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
-import {Comment} from '../../types/comment';
 import {useAppSelector} from '../../hooks/index';
 import Load from '../load/load';
-import {browserHistory} from '../../browser-history';
-import {HistoryRouter} from '../history/history';
 import { getAuthorizationStatus } from '../../store/user-process/selector';
 import { areFilmLoading } from '../../store/general-data/selector';
 
@@ -26,7 +23,6 @@ const App: React.FC = () => {
   }
 
   return (
-    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.MyList}
@@ -53,7 +49,9 @@ const App: React.FC = () => {
         <Route
           path={AppRoute.AddReview}
           element={
-            <AddReview/>
+            <PrivateRoute authorizationStatus={authorizationStatus}>
+              <AddReview/>
+            </PrivateRoute>
           }
         />
         <Route
@@ -67,7 +65,6 @@ const App: React.FC = () => {
           element={<NotFoundScreen/>}
         />
       </Routes>
-    </HistoryRouter>
   );
 };
 

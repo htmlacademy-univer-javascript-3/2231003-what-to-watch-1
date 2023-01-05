@@ -1,6 +1,6 @@
-import { State } from '../../types/state';
-import { NameSpace } from '../../const';
-import {Film} from "../../types/film";
+import {State} from '../../types/state';
+import {NameSpace} from '../../const';
+import {Film} from '../../types/film';
 
 export const areFilmLoading = (state: State): boolean => state[NameSpace.GeneralData].allFilmsLoading;
 export const isPromoLoading = (state: State): boolean => state[NameSpace.GeneralData].promoLoading;

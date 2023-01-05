@@ -22,7 +22,9 @@ const FilmCard: React.FC<Props> = (props) => {
       setTimeout(() => needUpdate && setPlay(true), TIME_PLAYING);
     }
 
-    return () => {needUpdate = false;};
+    return () => {
+      needUpdate = false;
+    };
   }, [needPlay]);
 
   const handleUnsetActiveFilm = () => {

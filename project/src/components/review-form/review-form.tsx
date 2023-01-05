@@ -1,7 +1,7 @@
 import React, {Fragment, useState} from 'react';
-import {useAppDispatch, useAppSelector} from "../../hooks";
-import {addReviewAction} from "../../store/api-actions";
-import {getFilm} from "../../store/film-data/selector";
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {addReviewAction} from '../../store/api-actions';
+import {getFilm} from '../../store/film-data/selector';
 
 const STARS_COUNT = 10;
 
@@ -19,7 +19,7 @@ const ReviewForm: React.FC = () => {
   };
   const handleSubmit = (evt: React.FocusEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(addReviewAction({ comment: comment, filmId: film?.id, rating: rating }));
+    dispatch(addReviewAction({comment: comment, filmId: film?.id, rating: rating}));
   };
 
   const ratingStars = [...Array(STARS_COUNT)].map((_, index) => {
@@ -34,6 +34,7 @@ const ReviewForm: React.FC = () => {
           name="rating"
           value={currentStar}
           onChange={handleRatingChange}
+          required
         />
         <label
           className="rating__label"
@@ -60,6 +61,9 @@ const ReviewForm: React.FC = () => {
           placeholder="Review text"
           onChange={handleCommentChange}
           value={comment}
+          maxLength={400}
+          minLength={50}
+          required
         >
         </textarea>
         <div className="add-review__submit">

@@ -1,24 +1,19 @@
 import React from 'react';
-import { useEffect } from 'react';
+import {useEffect} from 'react';
+import {Link, useParams} from 'react-router-dom';
 import Footer from '../../components/footer/footer';
-import {Link, Route, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
-import {Film} from '../../types/film';
 import FilmList from '../../components/film-list/film-list';
 import Tabs from '../../components/tabs/tabs';
-import {Comment} from '../../types/comment';
-import UserInfo from "../../components/user-info/user-info";
-import {store} from '../../store';
-import {useAppDispatch, useAppSelector} from "../../hooks";
-import NotFoundScreen from "../not-found-screen/not-found-screen";
-import Load from "../../components/load/load";
-import {AuthorizationStatus} from "../../const";
-import { fetchFilmAction, fetchSimilarAction } from '../../store/api-actions';
-import { getFilm, isFilmLoading, getSimilarFilms, areSimilarLoading } from '../../store/film-data/selector';
-import { getAuthorizationStatus } from '../../store/user-process/selector';
-
-const FILM_CARDS_COUNT = 4;
-
+import UserInfo from '../../components/user-info/user-info';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+import Load from '../../components/load/load';
+import {AuthorizationStatus} from '../../const';
+import {fetchFilmAction, fetchReviewsAction, fetchSimilarAction} from '../../store/api-actions';
+import {getFilm, getSimilarFilms, areSimilarLoading, isFilmLoading} from '../../store/film-data/selector';
+import {getAuthorizationStatus} from '../../store/user-process/selector';
+import MovieInList from '../../components/add-movie-in-list/add-movie-in-list';
 
 const MoviePageScreen: React.FC = () => {
   const {id} = useParams();
@@ -26,20 +21,21 @@ const MoviePageScreen: React.FC = () => {
   useEffect(() => {
     dispatch(fetchFilmAction(id));
     dispatch(fetchSimilarAction(id));
+    dispatch(fetchReviewsAction(+id));
   }, [id]);
 
   const dispatch = useAppDispatch();
   const similarFilms = useAppSelector(getSimilarFilms);
-  const areSimilarLoading = useAppSelector(areSimilarLoading);
+  const areSimilarFilmsLoading = useAppSelector(areSimilarLoading);
   const film = useAppSelector(getFilm);
-  const isFilmLoading = useAppSelector(isFilmLoading);
+  const isLoading = useAppSelector(isFilmLoading);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
-  if (areSimilarLoading || isFilmLoading ){
+  if (areSimilarFilmsLoading || isLoading) {
     return <Load/>;
   }
   if (id === undefined || film === undefined || getSimilarFilms === undefined) {
-    return <NotFoundScreen />;
+    return <NotFoundScreen/>;
   }
 
   return (
@@ -66,19 +62,13 @@ const MoviePageScreen: React.FC = () => {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <Link to={`/player/${film.id}`} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                </Link>
+                <MovieInList film={film}/>
                 {
                   authorizationStatus === AuthorizationStatus.Auth && (
                     <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
@@ -102,7 +92,7 @@ const MoviePageScreen: React.FC = () => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList films={similarFilms}/>
+          <FilmList films={similarFilms.slice(0, 4)}/>
         </section>
         <Footer/>
       </div>

@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
-import { getFavoriteFilmsAction } from '../api-actions';
-import {FavoriteData} from "../../types/state";
+import {createSlice} from '@reduxjs/toolkit';
+import {NameSpace} from '../../const';
+import {getFavoriteFilmsAction} from '../api-actions';
+import {FavoriteData} from '../../types/state';
 
 
 const initialState = {

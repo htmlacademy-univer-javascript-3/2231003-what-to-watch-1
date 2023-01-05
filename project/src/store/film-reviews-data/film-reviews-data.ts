@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
-import { fetchReviewsAction } from '../api-actions';
-import {ReviewsData} from "../../types/state";
+import {createSlice} from '@reduxjs/toolkit';
+import {NameSpace} from '../../const';
+import {fetchReviewsAction} from '../api-actions';
+import {ReviewsData} from '../../types/state';
 
 const initialState = {
   reviewsFilmId: 0,
