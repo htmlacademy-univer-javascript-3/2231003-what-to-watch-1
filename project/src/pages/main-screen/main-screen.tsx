@@ -1,23 +1,28 @@
-import React, {useState} from 'react';
-import {TypedUseSelectorHook, useSelector} from 'react-redux';
+import React, {useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import type {Film} from '../../types/film';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import FilmList from '../../components/film-list/film-list';
 import GenresList from '../../components/genres-list/genres-list';
-import type { store } from '../../store';
 import ShowMore from '../../components/show-more/show-more';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import UserInfo from '../../components/user-info/user-info';
-import {getPromoFilm, isPromoLoading, getPageFilms, areFilmLoading} from '../../store/general-data/selector';
-import { getGenre } from '../../store/general-data/selector';
-import Load from "../../components/load/load";
+import {
+  getPromoFilm,
+  isPromoLoading,
+  getPageFilms,
+  areFilmLoading,
+  getGenres,
+  isPageLast
+} from '../../store/general-data/selector';
+import {getGenre} from '../../store/general-data/selector';
+import Load from '../../components/load/load';
+import MovieInList from '../../components/add-movie-in-list/add-movie-in-list';
+import {changeGenreAction, turnToNextPageAction} from '../../store/general-data/general-data';
+import {areReviewsLoading} from '../../store/film-reviews-data/selector';
 
-
-
-const FILM_STEP_COUNT = 8;
 const ALL_GENRES = 'All genres';
-
 
 const MainScreen: React.FC = () => {
   const films = useAppSelector(getPageFilms);
@@ -25,16 +30,17 @@ const MainScreen: React.FC = () => {
   const promoLoading = useAppSelector(isPromoLoading);
   const isFilmLoading = useAppSelector(areFilmLoading);
   const genre = useAppSelector(getGenre);
-  if (promoLoading || isFilmLoading)
-  {
+  const genres = useAppSelector(getGenres);
+  const isLastFilmPage = useAppSelector(isPageLast);
+  const areLoading = useAppSelector(areReviewsLoading);
+  const dispatch = useAppDispatch();
+  const changeGenreHandle = (genre: string) => dispatch(changeGenreAction(genre));
+  useEffect(() => {
+    changeGenreHandle(ALL_GENRES);
+  }, []);
+  if (promoLoading || isFilmLoading || areLoading) {
     return <Load/>;
   }
-
-  const [filmsCount, addFilmsCount] = useState(FILM_STEP_COUNT);
-  const handleShowMoreClick = () => {
-    addFilmsCount(FILM_STEP_COUNT + filmsCount);
-  };
-  const filmsCurrentGenre = sortFilmsByGenre(films, genre);
 
   return (
     <>
@@ -47,7 +53,7 @@ const MainScreen: React.FC = () => {
 
         <header className="page-header film-card__head">
           <Logo/>
-         <UserInfo/>
+          <UserInfo/>
         </header>
 
         <div className="film-card__wrap">
@@ -64,19 +70,13 @@ const MainScreen: React.FC = () => {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <Link to={`/player/${promoFilm?.id}`} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                </Link>
+                <MovieInList film={promoFilm}/>
               </div>
             </div>
           </div>
@@ -86,31 +86,17 @@ const MainScreen: React.FC = () => {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresList genres={extractAvailableGenres(films)} currentGenre={genre}/>
-
+          <GenresList genres={genres} currentGenre={genre}/>
 
           <div className="catalog__films-list">
-            <FilmList films={filmsCurrentGenre.slice(0, filmsCount)}/>
+            <FilmList films={films}/>
           </div>
-          {filmsCurrentGenre.length > filmsCount && <ShowMore onClick={handleShowMoreClick}/>}
+          {!isLastFilmPage && <ShowMore onClick={() => dispatch(turnToNextPageAction())}/>}
         </section>
         <Footer/>
       </div>
     </>
   );
 };
-
-function extractAvailableGenres(films: Film[]): string[] {
-  const genres = new Set<string>(films.map((film) => film.genre));
-  genres.add(ALL_GENRES);
-  return Array.from(genres);
-}
-
-function sortFilmsByGenre(films: Film[], genre: string): Film[]{
-  if (genre === ALL_GENRES){
-    return films;
-  }
-  return films.filter((movies) => movies.genre === genre);
-}
 
 export default MainScreen;

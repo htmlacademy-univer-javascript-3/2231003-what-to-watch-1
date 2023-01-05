@@ -2,11 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import UserInfo from '../../components/user-info/user-info';
-import {Film} from '../../types/film';
 import ReviewForm from '../../components/review-form/review-form';
-import {useAppSelector} from "../../hooks";
-import {getFilm} from "../../store/film-data/selector";
-
+import {useAppSelector} from '../../hooks';
+import {getFilm} from '../../store/film-data/selector';
 
 
 const AddReviewScreen: React.FC = () => {
@@ -43,7 +41,7 @@ const AddReviewScreen: React.FC = () => {
       </div>
 
       <div className="add-review">
-        <ReviewForm />
+        <ReviewForm/>
       </div>
 
     </section>

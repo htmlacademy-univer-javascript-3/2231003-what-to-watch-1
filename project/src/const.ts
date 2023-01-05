@@ -27,7 +27,8 @@ export enum APIRoute {
   Login = '/login',
   Reviews = '/comments',
   Similar = '/similar',
-  Promo = '/promo'
+  Promo = '/promo',
+  MyList = '/mylist',
 }
 
 export enum NameSpace {
@@ -37,3 +38,20 @@ export enum NameSpace {
   FilmReviewsData = 'FILM_REVIEWS_DATA',
   FavoriteData = 'FAVORITE_DATA'
 }
+
+export const Months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
+
+

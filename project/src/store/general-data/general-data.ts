@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
-import { fetchPromoFilm, fetchFilmsAction } from '../api-actions';
+import {createSlice} from '@reduxjs/toolkit';
+import {NameSpace} from '../../const';
+import {fetchPromoFilm, fetchFilmsAction, fetchChangeFavoriteFilmsAction} from '../api-actions';
 import {GeneralData} from "../../types/state";
 import {Film} from "../../types/film";
 
@@ -37,13 +37,6 @@ export const generalData = createSlice({
   name: NameSpace.GeneralData,
   initialState,
   reducers: {
-    changeGenreAction: (state, action) => {
-      state.currentGenre = action.payload;
-      state.page = 1;
-      const genreFilms = state.genreToFilms[action.payload];
-      state.pageFilms = genreFilms.slice(0, PAGE_SIZE);
-      state.isLastPage = genreFilms.length <= PAGE_SIZE;
-    },
     turnToNextPageAction: (state) => {
       if (!state.isLastPage) {
         const genreFilms = state.genreToFilms[state.currentGenre];
@@ -51,6 +44,13 @@ export const generalData = createSlice({
         state.page += 1;
         state.isLastPage = genreFilms.length <= (state.page * PAGE_SIZE);
       }
+    },
+    changeGenreAction: (state, action) => {
+      state.currentGenre = action.payload;
+      state.page = 1;
+      const genreFilms = state.genreToFilms[action.payload];
+      state.pageFilms = genreFilms.slice(0, PAGE_SIZE);
+      state.isLastPage = genreFilms.length <= PAGE_SIZE;
     }
   },
   extraReducers(builder) {
@@ -61,7 +61,7 @@ export const generalData = createSlice({
       .addCase(fetchFilmsAction.fulfilled, (state, action) => {
         state.allFilms = action.payload;
         state.genresList = extractAvailableGenres(action.payload);
-        state.genreToFilms = { 'All genres': action.payload };
+        state.genreToFilms = {'All genres': action.payload};
         for (const genre of state.genresList) {
           state.genreToFilms[genre] = sortFilmsByGenre(action.payload, genre);
         }
@@ -81,8 +81,13 @@ export const generalData = createSlice({
       })
       .addCase(fetchPromoFilm.rejected, (state, action) => {
         state.promoLoading = false;
+      })
+      .addCase(fetchChangeFavoriteFilmsAction.fulfilled, (state, action) => {
+        if (state.promo?.id === action.payload.id) {
+          state.promo.isFavorite = action.payload.isFavorite
+        }
       });
   }
 });
 
-export const { changeGenreAction, turnToNextPageAction } = generalData.actions;
+export const {changeGenreAction, turnToNextPageAction} = generalData.actions;

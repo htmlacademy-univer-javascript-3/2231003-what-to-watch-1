@@ -1,11 +1,19 @@
 import React from 'react';
-import {Film} from '../../types/film';
-import {useAppSelector} from "../../hooks";
-import {getFilm} from "../../store/film-data/selector";
+import {useAppSelector} from '../../hooks';
+import {getFilm} from '../../store/film-data/selector';
 
 
 const DetailsTab: React.FC = () => {
   const film = useAppSelector(getFilm);
+
+  const getFormatRunTime = (minutes: number | undefined) => {
+    if (minutes == undefined)
+      return '';
+    if (minutes >= 60)
+      return `${Math.floor(minutes / 60)}h ${minutes % 60}m`;
+    return `${minutes % 60}m`
+
+  };
 
   return (
     <div className="film-card__text film-card__row">
@@ -25,7 +33,7 @@ const DetailsTab: React.FC = () => {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{film?.runTime}</span>
+          <span className="film-card__details-value">{getFormatRunTime(film?.runTime)}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
