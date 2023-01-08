@@ -35,7 +35,7 @@ export const filmData = createSlice({
       })
       .addCase(fetchChangeFavoriteFilmsAction.fulfilled, (state, action) => {
         if (state.currentFilm?.id === action.payload.id) {
-          state.currentFilm.isFavorite = action.payload.isFavorite
+          state.currentFilm.isFavorite = action.payload.isFavorite;
         }
       });
   }

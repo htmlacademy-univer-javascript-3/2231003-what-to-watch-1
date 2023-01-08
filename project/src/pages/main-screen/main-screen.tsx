@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import type {Film} from '../../types/film';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import FilmList from '../../components/film-list/film-list';
@@ -13,10 +12,8 @@ import {
   isPromoLoading,
   getPageFilms,
   areFilmLoading,
-  getGenres,
   isPageLast
 } from '../../store/general-data/selector';
-import {getGenre} from '../../store/general-data/selector';
 import Load from '../../components/load/load';
 import MovieInList from '../../components/add-movie-in-list/add-movie-in-list';
 import {changeGenreAction, turnToNextPageAction} from '../../store/general-data/general-data';
@@ -29,8 +26,6 @@ const MainScreen: React.FC = () => {
   const promoFilm = useAppSelector(getPromoFilm);
   const promoLoading = useAppSelector(isPromoLoading);
   const isFilmLoading = useAppSelector(areFilmLoading);
-  const genre = useAppSelector(getGenre);
-  const genres = useAppSelector(getGenres);
   const isLastFilmPage = useAppSelector(isPageLast);
   const areLoading = useAppSelector(areReviewsLoading);
   const dispatch = useAppDispatch();
@@ -76,7 +71,7 @@ const MainScreen: React.FC = () => {
                   </svg>
                   <span>Play</span>
                 </Link>
-                <MovieInList film={promoFilm}/>
+                {promoFilm !== undefined && <MovieInList film={promoFilm}/>}
               </div>
             </div>
           </div>
@@ -86,7 +81,7 @@ const MainScreen: React.FC = () => {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresList genres={genres} currentGenre={genre}/>
+          <GenresList/>
 
           <div className="catalog__films-list">
             <FilmList films={films}/>

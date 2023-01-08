@@ -7,16 +7,21 @@ const OverviewTab: React.FC = () => {
   const film = useAppSelector(getFilm);
 
   const getFilmScore = (score: number | undefined) => {
-    if (score == undefined)
+    if (score === undefined){
       return '';
-    if (score < 3)
+    }
+    if (score < 3){
       return 'Bad';
-    if (score >= 3 && score < 5)
+    }
+    if (score >= 3 && score < 5){
       return 'Normal';
-    if (score >= 5 && score < 8)
+    }
+    if (score >= 5 && score < 8){
       return 'Good';
-    if (score >= 8 && score < 10)
+    }
+    if (score >= 8 && score < 10){
       return 'Very good';
+    }
     return 'Awesome';
   };
 

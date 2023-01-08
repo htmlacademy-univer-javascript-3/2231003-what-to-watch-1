@@ -7,11 +7,13 @@ const DetailsTab: React.FC = () => {
   const film = useAppSelector(getFilm);
 
   const getFormatRunTime = (minutes: number | undefined) => {
-    if (minutes == undefined)
+    if (minutes === undefined){
       return '';
-    if (minutes >= 60)
+    }
+    if (minutes >= 60){
       return `${Math.floor(minutes / 60)}h ${minutes % 60}m`;
-    return `${minutes % 60}m`
+    }
+    return `${minutes % 60}m`;
 
   };
 

@@ -7,7 +7,7 @@ import {getAuthorizationStatus, getUserData} from '../../store/user-process/sele
 
 
 const UserInfo: React.FC = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const user = useAppSelector(getUserData);
   const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ const UserInfo: React.FC = () => {
           <Link to='/login' className='user-block__link'>Sign in</Link>
         </li>
       </ul>
-    )
+    );
   }
   return (
     <ul className="user-block">
@@ -37,7 +37,7 @@ const UserInfo: React.FC = () => {
         <a className="user-block__link" onClick={signOutClickHandler}>Sign out</a>
       </li>
     </ul>
-  )
+  );
 };
 
 export default UserInfo;

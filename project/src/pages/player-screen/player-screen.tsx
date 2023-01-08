@@ -1,10 +1,10 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import Load from '../../components/load/load';
 import {fetchFilmAction} from '../../store/api-actions';
 import {getFilm} from '../../store/film-data/selector';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import Load from '../../components/load/load';
 
 const PlayerScreen: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +18,7 @@ const PlayerScreen: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(0);
 
   useEffect(() => {
-    dispatch(fetchFilmAction(id))
+    dispatch(fetchFilmAction(id));
 
     if (videoRef.current === null) {
       return;
@@ -29,7 +29,7 @@ const PlayerScreen: React.FC = () => {
     if (!isPlaying) {
       videoRef.current.load();
     }
-  }, [id])
+  }, [id]);
 
   if (film === undefined) {
     return <NotFoundScreen/>;
@@ -37,7 +37,7 @@ const PlayerScreen: React.FC = () => {
 
   const handleFullScreen = () => {
     if (videoRef.current?.requestFullscreen) {
-      videoRef.current?.requestFullscreen()
+      videoRef.current?.requestFullscreen();
     }
   };
   const getFormatPlayTime = (seconds: number) => {
@@ -47,7 +47,7 @@ const PlayerScreen: React.FC = () => {
       format = format.substring(3);
     }
     return `-${format}`;
-  }
+  };
   const handlePlayClick = () => {
     if (videoRef.current?.paused) {
       videoRef.current?.play();
@@ -59,11 +59,14 @@ const PlayerScreen: React.FC = () => {
   };
   const handleProgressBar = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
     if (isNaN(e.target.duration))
+    {
       return;
+    }
     setProgress((e.target.currentTime / e.target.duration) * 100);
     if (videoRef.current)
+    {
       setTimeLeft(Math.trunc(videoRef.current.duration - videoRef.current.currentTime));
-
+    }
   };
 
   return (

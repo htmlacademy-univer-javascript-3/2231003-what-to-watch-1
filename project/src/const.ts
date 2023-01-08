@@ -1,5 +1,3 @@
-import {fetchReviewsAction} from "./store/api-actions";
-
 export enum AppRoute {
   SingIn = '/login',
   MyList = '/mylist',
