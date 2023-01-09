@@ -21,7 +21,9 @@ const MoviePageScreen: React.FC = () => {
   useEffect(() => {
     dispatch(fetchFilmAction(id));
     dispatch(fetchSimilarAction(id));
-    dispatch(fetchReviewsAction(+id));
+    if (id !== undefined){
+      dispatch(fetchReviewsAction(+id));
+    }
   }, [id]);
 
   const dispatch = useAppDispatch();

@@ -154,6 +154,6 @@ export const fetchChangeFavoriteFilmsAction = createAsyncThunk<Film, { filmId: n
   'data/fetchChange',
   async ({filmId, status}, {extra: api}) => {
     const {data} = await api.post<Film>(`/favorite/${filmId}/${status}`);
-    return data
+    return data;
   },
 );

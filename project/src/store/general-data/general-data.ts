@@ -1,8 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {fetchPromoFilm, fetchFilmsAction, fetchChangeFavoriteFilmsAction} from '../api-actions';
-import {GeneralData} from "../../types/state";
-import {Film} from "../../types/film";
+import {GeneralData} from '../../types/state';
+import {Film} from '../../types/film';
 
 const PAGE_SIZE = 8;
 
@@ -84,7 +84,7 @@ export const generalData = createSlice({
       })
       .addCase(fetchChangeFavoriteFilmsAction.fulfilled, (state, action) => {
         if (state.promo?.id === action.payload.id) {
-          state.promo.isFavorite = action.payload.isFavorite
+          state.promo.isFavorite = action.payload.isFavorite;
         }
       });
   }

@@ -23,5 +23,6 @@ const Player: React.FC<Props> = (props) => {
   }, [isPlaying]);
 
   return <video ref={playerRef} width="280" height="175" src={film.videoLink} poster={film.previewImage} muted={true}/>;
-}
+};
+
 export default Player;

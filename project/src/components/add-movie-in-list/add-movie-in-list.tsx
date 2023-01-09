@@ -17,11 +17,7 @@ function MovieInList(props: Props): JSX.Element {
   const favoriteFilms = useAppSelector(getFavoriteFilms);
 
   return (
-    <button className="btn btn--list film-card__button" type="button"
-            onClick={() => dispatch(fetchChangeFavoriteFilmsAction({
-              filmId: props.film.id,
-              status: Number(!filmStatus)
-            }))}>
+    <button className="btn btn--list film-card__button" type="button" onClick={() => dispatch(fetchChangeFavoriteFilmsAction({filmId: props.film.id, status: Number(!filmStatus)}))}>
       <svg viewBox="0 0 19 20" width="19" height="20">
         {
           filmStatus

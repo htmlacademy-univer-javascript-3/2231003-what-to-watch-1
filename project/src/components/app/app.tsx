@@ -11,8 +11,8 @@ import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import {useAppSelector} from '../../hooks/index';
 import Load from '../load/load';
-import { getAuthorizationStatus } from '../../store/user-process/selector';
-import { areFilmLoading } from '../../store/general-data/selector';
+import {getAuthorizationStatus} from '../../store/user-process/selector';
+import {areFilmLoading} from '../../store/general-data/selector';
 
 
 const App: React.FC = () => {
@@ -23,48 +23,48 @@ const App: React.FC = () => {
   }
 
   return (
-      <Routes>
-        <Route
-          path={AppRoute.MyList}
-          element={
-            <PrivateRoute authorizationStatus={authorizationStatus}>
-              <MyList/>
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.SingIn}
-          element={<SignIn/>}
-        />
-        <Route
-          path={AppRoute.Root}
-          element={<MainScreen/>}
-        />
-        <Route
-          path={AppRoute.Film}
-          element={
-            <Movie/>
-          }
-        />
-        <Route
-          path={AppRoute.AddReview}
-          element={
-            <PrivateRoute authorizationStatus={authorizationStatus}>
-              <AddReview/>
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.Player}
-          element={
-            <Player/>
-          }
-        />
-        <Route
-          path="*"
-          element={<NotFoundScreen/>}
-        />
-      </Routes>
+    <Routes>
+      <Route
+        path={AppRoute.MyList}
+        element={
+          <PrivateRoute authorizationStatus={authorizationStatus}>
+            <MyList/>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.SingIn}
+        element={<SignIn/>}
+      />
+      <Route
+        path={AppRoute.Root}
+        element={<MainScreen/>}
+      />
+      <Route
+        path={AppRoute.Film}
+        element={
+          <Movie/>
+        }
+      />
+      <Route
+        path={AppRoute.AddReview}
+        element={
+          <PrivateRoute authorizationStatus={authorizationStatus}>
+            <AddReview/>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.Player}
+        element={
+          <Player/>
+        }
+      />
+      <Route
+        path="*"
+        element={<NotFoundScreen/>}
+      />
+    </Routes>
   );
 };
 

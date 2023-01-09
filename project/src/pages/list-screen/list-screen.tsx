@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import FilmList from '../../components/film-list/film-list';
-import UserInfo from "../../components/user-info/user-info";
-import {useAppDispatch, useAppSelector} from "../../hooks";
+import UserInfo from '../../components/user-info/user-info';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getFavoriteFilms, areFavoriteFilmsInLoading} from '../../store/favorite-data/selector';
 import Load from '../../components/load/load';
 import {getFavoriteFilmsAction} from '../../store/api-actions';
@@ -12,8 +12,8 @@ import {getFavoriteFilmsAction} from '../../store/api-actions';
 const ListScreen: React.FC = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getFavoriteFilmsAction())
-  }, [dispatch])
+    dispatch(getFavoriteFilmsAction());
+  }, [dispatch]);
   const films = useAppSelector(getFavoriteFilms);
   const areInLoading = useAppSelector(areFavoriteFilmsInLoading);
 
