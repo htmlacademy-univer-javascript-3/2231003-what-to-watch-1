@@ -15,7 +15,7 @@ import {
   isPageLast
 } from '../../store/general-data/selector';
 import Load from '../../components/load/load';
-import MovieInList from '../../components/add-movie-in-list/add-movie-in-list';
+import AddMovieInList from '../../components/add-movie-in-list/add-movie-in-list';
 import {changeGenreAction, turnToNextPageAction} from '../../store/general-data/general-data';
 import {areReviewsLoading} from '../../store/film-reviews-data/selector';
 
@@ -58,7 +58,7 @@ const MainScreen: React.FC = () => {
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">The {promoFilm?.name}</h2>
+              <h2 className="film-card__title">{promoFilm?.name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{promoFilm?.genre}</span>
                 <span className="film-card__year">{promoFilm?.released}</span>
@@ -71,7 +71,7 @@ const MainScreen: React.FC = () => {
                   </svg>
                   <span>Play</span>
                 </Link>
-                {promoFilm !== undefined && <MovieInList film={promoFilm}/>}
+                {promoFilm !== undefined && <AddMovieInList film={promoFilm}/>}
               </div>
             </div>
           </div>

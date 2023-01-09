@@ -12,7 +12,7 @@ const fakeHistory = {
   },
 };
 
-jest.mock('../../browser-history', () => fakeHistory);
+jest.mock('../../browser-history');
 
 const middlewares = [redirect];
 const mockStore = configureMockStore<State, AnyAction>(middlewares);
@@ -24,10 +24,10 @@ describe('Middleware: redirect', () => {
   });
 
   it('should be redirect to /login', () => {
-    store.dispatch(redirectToRoute('/*'));
-    expect(fakeHistory.location.pathname).toBe('/*');
+    store.dispatch(redirectToRoute(AppRoute.SingIn));
+    expect(fakeHistory.location.pathname).toBe(AppRoute.SingIn);
     expect(store.getActions()).toEqual([
-      redirectToRoute('/*'),
+      redirectToRoute(AppRoute.SingIn),
     ]);
   });
 

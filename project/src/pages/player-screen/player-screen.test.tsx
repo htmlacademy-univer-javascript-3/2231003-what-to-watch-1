@@ -36,18 +36,18 @@ jest.mock('react', () => ({
   useEffect: jest.fn()
 }))
 
-describe('Component: MoviePage', () => {
+describe('Component: Player', () => {
   it('should render correctly', () => {
     render(
       <Provider store={store}>
-      <HistoryRouter history={history}>
-        <MoviePageScreen/>
+        <HistoryRouter history={history}>
+          <PlayerScreen/>
         </HistoryRouter>
-        </Provider>,
+      </Provider>,
     );
 
     expect(screen.getByText('Play')).toBeInTheDocument();
-    expect(screen.getByText(mockFilm.name)).toBeInTheDocument();
-    expect(screen.getByText(/More like this/i)).toBeInTheDocument();
+    expect(screen.getByText('Transpotting')).toBeInTheDocument();
+    expect(screen.getByText('Full screen')).toBeInTheDocument();
   });
 });

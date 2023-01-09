@@ -8,7 +8,7 @@ type Props = {
   film: Film
 }
 
-function MovieInList(props: Props): JSX.Element {
+function AddMovieInList(props: Props): JSX.Element {
   const filmStatus = props.film.isFavorite;
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -32,4 +32,4 @@ function MovieInList(props: Props): JSX.Element {
   );
 }
 
-export default MovieInList;
+export default AddMovieInList;

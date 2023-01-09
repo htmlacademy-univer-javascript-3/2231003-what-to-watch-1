@@ -13,7 +13,7 @@ import {AuthorizationStatus} from '../../const';
 import {fetchFilmAction, fetchReviewsAction, fetchSimilarAction} from '../../store/api-actions';
 import {getFilm, getSimilarFilms, areSimilarLoading, isFilmLoading} from '../../store/film-data/selector';
 import {getAuthorizationStatus} from '../../store/user-process/selector';
-import MovieInList from '../../components/add-movie-in-list/add-movie-in-list';
+import AddMovieInList from '../../components/add-movie-in-list/add-movie-in-list';
 
 const MoviePageScreen: React.FC = () => {
   const {id} = useParams();
@@ -35,9 +35,6 @@ const MoviePageScreen: React.FC = () => {
 
   if (areSimilarFilmsLoading || isLoading) {
     return <Load/>;
-  }
-  if (id === undefined || film === undefined || getSimilarFilms === undefined) {
-    return <NotFoundScreen/>;
   }
 
   return (
@@ -64,13 +61,13 @@ const MoviePageScreen: React.FC = () => {
               </p>
 
               <div className="film-card__buttons">
-                <Link to={`/player/${film.id}`} className="btn btn--play film-card__button" type="button">
+                <Link to={`/player/${film?.id}`} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </Link>
-                <MovieInList film={film}/>
+                <AddMovieInList film={film}/>
                 {
                   authorizationStatus === AuthorizationStatus.Auth && (
                     <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
