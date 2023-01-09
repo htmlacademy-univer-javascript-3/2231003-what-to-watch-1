@@ -4,23 +4,39 @@ import {createMemoryHistory} from 'history';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import HistoryRouter from '../../components/history/history';
 import {AuthorizationStatus} from '../../const';
-import MyList from './list-screen';
+import MainScreen from './main-screen';
 import {makeFakeFilm} from '../../utils/mocks';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 const mockFilms = [makeFakeFilm()];
+const mockFilm = makeFakeFilm();
 
 
 const store = mockStore({
   AUTH_INFO: {
     authorizationStatus: AuthorizationStatus.Auth
   },
+  GENERAL_DATA: {
+    allFilms: mockFilms,
+    genresList: ['All genres'],
+    genreToFilms: {},
+    promo: mockFilm,
+    currentGenre: 'All genres',
+    pageFilms: [],
+    page: 1,
+    isLastPage: false,
+    allFilmsLoading: false,
+    promoLoading: false,
+  },
+  FILM_REVIEWS_DATA: {
+    reviewsFilmId: 0,
+    reviewsLoading: false,
+    reviews: []
+  },
   FAVORITE_DATA: {
-    favoriteFilms: mockFilms,
-    favoritesCount: mockFilms.length,
-    areFavoriteLoading: false,
-    areFavoriteOutdated: false,
+    favoriteFilms: [],
+    favoriteLoading: false,
   }
 });
 
@@ -29,17 +45,19 @@ jest.mock('react', () => ({
   useEffect: jest.fn()
 }))
 
-describe('Component: MyList', () => {
+describe('Component: Main', () => {
   it('should render correctly', () => {
     render(
       <Provider store={store}>
-      <HistoryRouter history={history}>
-        <MyList/>
+        <HistoryRouter history={history}>
+          <MainScreen/>
         </HistoryRouter>
-        </Provider>,
+      </Provider>,
     );
 
-    expect(screen.getByText('My list')).toBeInTheDocument();
+    expect(screen.getByText('Play')).toBeInTheDocument();
     expect(screen.getByText(/Catalog/i)).toBeInTheDocument();
+    expect(screen.getByText(mockFilm.genre)).toBeInTheDocument();
+    expect(screen.getByText(mockFilm.released)).toBeInTheDocument();
   });
 });

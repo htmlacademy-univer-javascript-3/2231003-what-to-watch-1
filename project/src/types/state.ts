@@ -25,6 +25,7 @@ export type ReviewsData = {
   reviewsFilmId: number;
   reviewsLoading: boolean;
   reviews: Comment[];
+  isReviewPosting: boolean,
 };
 
 export type GeneralData = {

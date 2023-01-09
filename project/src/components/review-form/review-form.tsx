@@ -2,12 +2,14 @@ import React, {Fragment, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {addReviewAction} from '../../store/api-actions';
 import {getFilm} from '../../store/film-data/selector';
+import {isReviewPosting} from '../../store/film-reviews-data/selector';
 
 const STARS_COUNT = 10;
 
 const ReviewForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const film = useAppSelector(getFilm);
+  const isCommentPosting = useAppSelector(isReviewPosting);
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
 
@@ -58,6 +60,7 @@ const ReviewForm: React.FC = () => {
           className="add-review__textarea"
           name="review-text"
           id="review-text"
+          data-testid='textarea'
           placeholder="Review text"
           onChange={handleCommentChange}
           value={comment}
@@ -67,7 +70,12 @@ const ReviewForm: React.FC = () => {
         >
         </textarea>
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit">Post</button>
+          <button
+            className="add-review__btn" type="submit"
+            disabled={comment.length < 50 || comment.length > 400 || isCommentPosting}
+          >
+            Post
+          </button>
         </div>
 
       </div>

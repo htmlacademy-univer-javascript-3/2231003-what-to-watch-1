@@ -11,27 +11,37 @@ import {UserData} from '../types/user-data';
 import {saveToken, dropToken} from '../services/token';
 import {Comment, Comments, SendComment} from '../types/comment';
 
-export const fetchFilmsAction = createAsyncThunk<Film[], undefined, {
+export const fetchFilmsAction = createAsyncThunk<Film[] | undefined, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'data/fetchFilms',
   async (_arg, {dispatch, extra: api}) => {
-    const response = await api.get<Film[]>(APIRoute.Films);
-    return response.data;
+    try {
+      const response = await api.get<Film[]>(APIRoute.Films);
+      return response.data;
+    } catch {
+      dispatch(redirectToRoute('/*'));
+      return undefined;
+    }
   },
 );
 
-export const fetchPromoFilm = createAsyncThunk<Film, undefined, {
+export const fetchPromoFilm = createAsyncThunk<Film | undefined, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'data/fetchPromoFilm',
   async (_arg, {dispatch, extra: api}) => {
-    const response = await api.get<Film>(APIRoute.Promo);
-    return response.data;
+    try {
+      const response = await api.get<Film>(APIRoute.Promo);
+      return response.data;
+    } catch {
+      dispatch(redirectToRoute('/*'));
+      return undefined;
+    }
   },
 );
 
@@ -74,42 +84,57 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const fetchFilmAction = createAsyncThunk<Film, string | undefined, {
+export const fetchFilmAction = createAsyncThunk<Film | undefined, string | undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'data/fetchFilm',
   async (id, {dispatch, extra: api}) => {
-    const response = await api.get<Film>(`/films/${id}`);
-    return response.data;
+    try {
+      const response = await api.get<Film>(`/films/${id}`);
+      return response.data;
+    } catch {
+      dispatch(redirectToRoute('/*'));
+      return undefined;
+    }
   },
 );
 
-export const fetchSimilarAction = createAsyncThunk<Film[], string | undefined, {
+export const fetchSimilarAction = createAsyncThunk<Film[] | undefined, string | undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'data/fetchSimilarFilms',
   async (id, {dispatch, extra: api}) => {
-    const response = await api.get<Film[]>(`${APIRoute.Films}/${id}${APIRoute.Similar}`);
-    return response.data;
+    try {
+      const response = await api.get<Film[]>(`${APIRoute.Films}/${id}${APIRoute.Similar}`);
+      return response.data;
+    } catch {
+      dispatch(redirectToRoute('/*'));
+      return undefined;
+    }
   },
 );
 
-export const fetchReviewsAction = createAsyncThunk<Comments, number, {
+export const fetchReviewsAction = createAsyncThunk<Comments | undefined, number, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'FETCH_FILM_REVIEWS',
   async (id, {dispatch, extra: api}) => {
-    const response = await api.get<Comment[]>(`/comments/${id}`);
-    return {
-      filmId: id,
-      comments: response.data
-    } as Comments;
+    try {
+      const response = await api.get<Comment[]>(`/comments/${id}`);
+      return {
+        filmId: id,
+        comments: response.data
+      } as Comments;
+    } catch {
+      dispatch(redirectToRoute('/*'));
+      return undefined;
+    }
   },
 );
 
@@ -134,7 +159,7 @@ export const addReviewAction = createAsyncThunk<void, SendComment, {
   },
 );
 
-export const getFavoriteFilmsAction = createAsyncThunk<Film[], undefined, {
+export const getFavoriteFilmsAction = createAsyncThunk<Film[] | undefined, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -146,7 +171,7 @@ export const getFavoriteFilmsAction = createAsyncThunk<Film[], undefined, {
   },
 );
 
-export const fetchChangeFavoriteFilmsAction = createAsyncThunk<Film, { filmId: number | undefined, status: number }, {
+export const fetchChangeFavoriteFilmsAction = createAsyncThunk<Film | undefined, { filmId: number | undefined, status: number }, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance

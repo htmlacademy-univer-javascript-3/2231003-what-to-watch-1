@@ -16,6 +16,15 @@ function SignIn(): JSX.Element {
   }
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const isPasswordValid = () => (
+    passwordRef.current !== null &&
+    passwordRef.current.value.length > 1 &&
+    passwordRef.current.value.match(/(?=.*\d)(?=.*[A-Za-z])./g) !== null
+  );
+  const isLoginValid = () =>
+    loginRef.current !== null
+    && loginRef.current.value.length > 0
+    && loginRef.current.value.includes('@');
 
   const dispatch = useAppDispatch();
   const onSubmit = (authData: AuthData) => {
@@ -25,7 +34,7 @@ function SignIn(): JSX.Element {
   const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current !== null && passwordRef.current !== null) {
+    if (isPasswordValid() && isLoginValid()) {
       onSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,

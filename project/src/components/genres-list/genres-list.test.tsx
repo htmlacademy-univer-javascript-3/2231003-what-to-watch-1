@@ -4,7 +4,7 @@ import {createMemoryHistory} from 'history';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import HistoryRouter from '../../components/history/history';
 import {AuthorizationStatus} from '../../const';
-import MyList from './list-screen';
+import GenresList from './genres-list';
 import {makeFakeFilm} from '../../utils/mocks';
 
 const mockStore = configureMockStore();
@@ -16,12 +16,9 @@ const store = mockStore({
   AUTH_INFO: {
     authorizationStatus: AuthorizationStatus.Auth
   },
-  FAVORITE_DATA: {
-    favoriteFilms: mockFilms,
-    favoritesCount: mockFilms.length,
-    areFavoriteLoading: false,
-    areFavoriteOutdated: false,
-  }
+  GENERAL_DATA: {
+    genresList: ['A', 'B', 'C'],
+  },
 });
 
 jest.mock('react', () => ({
@@ -33,13 +30,14 @@ describe('Component: MyList', () => {
   it('should render correctly', () => {
     render(
       <Provider store={store}>
-      <HistoryRouter history={history}>
-        <MyList/>
+        <HistoryRouter history={history}>
+          <GenresList/>
         </HistoryRouter>
-        </Provider>,
+      </Provider>,
     );
 
-    expect(screen.getByText('My list')).toBeInTheDocument();
-    expect(screen.getByText(/Catalog/i)).toBeInTheDocument();
+    expect(screen.getByText('A')).toBeInTheDocument();
+    expect(screen.getByText('B')).toBeInTheDocument();
+    expect(screen.getByText('C')).toBeInTheDocument();
   });
 });

@@ -10,7 +10,8 @@ describe('Reducer: reviewsData', () => {
     state = {
       reviewsFilmId: 0,
       reviewsLoading: false,
-      reviews: []
+      reviews: [],
+      isReviewPosting: false
     };
   });
 

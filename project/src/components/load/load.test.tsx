@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Load from './load';
 
-describe('Component: Footer', () => {
+describe('Component: Load', () => {
   it('should render correctly', () => {
     render(
       <Load />

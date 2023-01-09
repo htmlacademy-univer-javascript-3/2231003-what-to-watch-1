@@ -1,14 +1,26 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import UserInfo from '../../components/user-info/user-info';
 import ReviewForm from '../../components/review-form/review-form';
-import {useAppSelector} from '../../hooks';
-import {getFilm} from '../../store/film-data/selector';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getFilm, isFilmLoading} from '../../store/film-data/selector';
+import {fetchFilmAction} from '../../store/api-actions';
+import Load from '../../components/load/load';
 
 
 const AddReviewScreen: React.FC = () => {
+  const dispatch = useAppDispatch();
   const film = useAppSelector(getFilm);
+  const isLoading = useAppSelector(isFilmLoading);
+  const {id} = useParams();
+  useEffect(() => {
+    dispatch(fetchFilmAction(id));
+  }, [id]);
+
+  if (isLoading) {
+    return <Load/>;
+  }
 
   return (
     <section className="film-card film-card--full">
