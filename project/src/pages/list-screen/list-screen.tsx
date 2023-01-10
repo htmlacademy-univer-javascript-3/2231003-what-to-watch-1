@@ -7,6 +7,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getFavoriteFilms, areFavoriteFilmsInLoading} from '../../store/favorite-data/selector';
 import Load from '../../components/load/load';
 import {getFavoriteFilmsAction} from '../../store/api-actions';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 
 const ListScreen: React.FC = () => {
@@ -14,8 +15,13 @@ const ListScreen: React.FC = () => {
   useEffect(() => {
     dispatch(getFavoriteFilmsAction());
   }, [dispatch]);
+
   const films = useAppSelector(getFavoriteFilms);
   const areInLoading = useAppSelector(areFavoriteFilmsInLoading);
+
+  if (films === undefined) {
+    return <NotFoundScreen/>;
+  }
 
   if (areInLoading) {
     return <Load/>;

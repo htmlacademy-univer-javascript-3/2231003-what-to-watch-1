@@ -16,23 +16,30 @@ import {
 } from '../../store/general-data/selector';
 import Load from '../../components/load/load';
 import MovieInList from '../../components/add-movie-in-list/add-movie-in-list';
-import {changeGenreAction, turnToNextPageAction} from '../../store/general-data/general-data';
+import {changeGenreAction, showMoreFilmsAction} from '../../store/general-data/general-data';
 import {areReviewsLoading} from '../../store/film-reviews-data/selector';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 const ALL_GENRES = 'All genres';
 
 const MainScreen: React.FC = () => {
+  useEffect(() => {
+    changeGenreHandle(ALL_GENRES);
+  }, []);
+
+  const dispatch = useAppDispatch();
   const films = useAppSelector(getPageFilms);
   const promoFilm = useAppSelector(getPromoFilm);
   const promoLoading = useAppSelector(isPromoLoading);
   const isFilmLoading = useAppSelector(areFilmLoading);
   const isLastFilmPage = useAppSelector(isPageLast);
   const areLoading = useAppSelector(areReviewsLoading);
-  const dispatch = useAppDispatch();
   const changeGenreHandle = (genre: string) => dispatch(changeGenreAction(genre));
-  useEffect(() => {
-    changeGenreHandle(ALL_GENRES);
-  }, []);
+
+  if (films === undefined || promoFilm === undefined) {
+    return <NotFoundScreen/>;
+  }
+
   if (promoLoading || isFilmLoading || areLoading) {
     return <Load/>;
   }
@@ -86,7 +93,7 @@ const MainScreen: React.FC = () => {
           <div className="catalog__films-list">
             <FilmList films={films}/>
           </div>
-          {!isLastFilmPage && <ShowMore onClick={() => dispatch(turnToNextPageAction())}/>}
+          {!isLastFilmPage && <ShowMore onClick={() => dispatch(showMoreFilmsAction())}/>}
         </section>
         <Footer/>
       </div>

@@ -6,17 +6,16 @@ import {getFilm} from '../../store/film-data/selector';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Load from '../../components/load/load';
 
-const PlayerScreen: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const film = useAppSelector(getFilm);
-  const navigate = useNavigate();
-  const {id} = useParams();
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(0);
+const getFormatTime = (seconds: number) => {
+  let result = new Date(seconds * 1000).toISOString().slice(11, 19).toString();
+  if (result.startsWith('00')) {
+    result = result.substring(3);
+  }
+  return `-${result}`;
+};
 
+const PlayerScreen: React.FC = () => {
+  const {id} = useParams();
   useEffect(() => {
     dispatch(fetchFilmAction(id));
 
@@ -31,41 +30,31 @@ const PlayerScreen: React.FC = () => {
     }
   }, [id]);
 
-  if (film === undefined) {
+  const dispatch = useAppDispatch();
+  const film = useAppSelector(getFilm);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  if (id === undefined || film === undefined) {
     return <NotFoundScreen/>;
   }
-
+  const handleProgressBar = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
+    const target = (e.target as HTMLVideoElement);
+    if (isNaN(target.duration)) {
+      return;
+    }
+    setProgress((target.currentTime / target.duration) * 100);
+    if (videoRef.current) {
+      setTimeLeft(Math.trunc(videoRef.current.duration - videoRef.current.currentTime));
+    }
+  };
   const handleFullScreen = () => {
     if (videoRef.current?.requestFullscreen) {
       videoRef.current?.requestFullscreen();
-    }
-  };
-  const getFormatPlayTime = (seconds: number) => {
-    const date = new Date(seconds * 1000);
-    let format = date.toISOString().slice(11, 19).toString();
-    if (format.startsWith('00')) {
-      format = format.substring(3);
-    }
-    return `-${format}`;
-  };
-  const handlePlayClick = () => {
-    if (videoRef.current?.paused) {
-      videoRef.current?.play();
-      setIsPlaying(true);
-    } else {
-      videoRef.current?.pause();
-      setIsPlaying(false);
-    }
-  };
-  const handleProgressBar = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
-    if (isNaN(e.target.duration))
-    {
-      return;
-    }
-    setProgress((e.target.currentTime / e.target.duration) * 100);
-    if (videoRef.current)
-    {
-      setTimeLeft(Math.trunc(videoRef.current.duration - videoRef.current.currentTime));
     }
   };
 
@@ -88,11 +77,23 @@ const PlayerScreen: React.FC = () => {
             <progress className="player__progress" value={progress} max="100"/>
             <div className="player__toggler" style={{left: `${progress}%`}}>Toggler</div>
           </div>
-          <div className="player__time-value">{getFormatPlayTime(timeLeft)}</div>
+          <div className="player__time-value">{getFormatTime(timeLeft)}</div>
         </div>
 
         <div className="player__controls-row">
-          <button type="button" className="player__play" onClick={handlePlayClick}>
+          <button type="button" className="player__play" onClick=
+            {
+              () => {
+                if (videoRef.current?.paused) {
+                  videoRef.current?.play();
+                  setIsPlaying(true);
+                } else {
+                  videoRef.current?.pause();
+                  setIsPlaying(false);
+                }
+              }
+            }
+          >
             <svg viewBox="0 0 19 19" width="19" height="19">
               <use xlinkHref="#play-s"/>
             </svg>

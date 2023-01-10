@@ -11,37 +11,27 @@ import {UserData} from '../types/user-data';
 import {saveToken, dropToken} from '../services/token';
 import {Comment, Comments, SendComment} from '../types/comment';
 
-export const fetchFilmsAction = createAsyncThunk<Film[] | undefined, undefined, {
+export const fetchFilmsAction = createAsyncThunk<Film[], undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'data/fetchFilms',
   async (_arg, {dispatch, extra: api}) => {
-    try {
-      const response = await api.get<Film[]>(APIRoute.Films);
-      return response.data;
-    } catch {
-      dispatch(redirectToRoute('/*'));
-      return undefined;
-    }
+    const response = await api.get<Film[]>(APIRoute.Films);
+    return response.data;
   },
 );
 
-export const fetchPromoFilm = createAsyncThunk<Film | undefined, undefined, {
+export const fetchPromoFilm = createAsyncThunk<Film, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'data/fetchPromoFilm',
   async (_arg, {dispatch, extra: api}) => {
-    try {
-      const response = await api.get<Film>(APIRoute.Promo);
-      return response.data;
-    } catch {
-      dispatch(redirectToRoute('/*'));
-      return undefined;
-    }
+    const response = await api.get<Film>(APIRoute.Promo);
+    return response.data;
   },
 );
 
@@ -84,57 +74,43 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const fetchFilmAction = createAsyncThunk<Film | undefined, string | undefined, {
+export const fetchFilmAction = createAsyncThunk<Film, string | undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'data/fetchFilm',
   async (id, {dispatch, extra: api}) => {
-    try {
-      const response = await api.get<Film>(`/films/${id}`);
-      return response.data;
-    } catch {
-      dispatch(redirectToRoute('/*'));
-      return undefined;
-    }
+    const response = await api.get<Film>(`/films/${id}`);
+    return response.data;
   },
 );
 
-export const fetchSimilarAction = createAsyncThunk<Film[] | undefined, string | undefined, {
+export const fetchSimilarAction = createAsyncThunk<Film[], string | undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'data/fetchSimilarFilms',
   async (id, {dispatch, extra: api}) => {
-    try {
-      const response = await api.get<Film[]>(`${APIRoute.Films}/${id}${APIRoute.Similar}`);
-      return response.data;
-    } catch {
-      dispatch(redirectToRoute('/*'));
-      return undefined;
-    }
+    const response = await api.get<Film[]>(`${APIRoute.Films}/${id}${APIRoute.Similar}`);
+    return response.data;
   },
 );
 
-export const fetchReviewsAction = createAsyncThunk<Comments | undefined, number, {
+export const fetchReviewsAction = createAsyncThunk<Comments, number, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
-  'FETCH_FILM_REVIEWS',
+  'data/fetchReviews',
   async (id, {dispatch, extra: api}) => {
-    try {
-      const response = await api.get<Comment[]>(`/comments/${id}`);
-      return {
-        filmId: id,
-        comments: response.data
-      } as Comments;
-    } catch {
-      dispatch(redirectToRoute('/*'));
-      return undefined;
-    }
+    const response = await api.get<Comment[]>(`/comments/${id}`);
+    return {
+      filmId: id,
+      comments: response.data
+    } as Comments;
+
   },
 );
 
@@ -145,21 +121,18 @@ export const addReviewAction = createAsyncThunk<void, SendComment, {
 }>(
   'data/addReview',
   async (data, {dispatch, extra: api}) => {
-    try {
-      const result = await api.post(`/comments/${data.filmId}`, {
-        comment: data.comment,
-        rating: data.rating
-      });
-      if (result.status === 200) {
-        dispatch(redirectToRoute(`/films/${data.filmId}`));
-      }
-    } catch {
-      dispatch(redirectToRoute('/*'));
+    const result = await api.post(`/comments/${data.filmId}`, {
+      comment: data.comment,
+      rating: data.rating
+    });
+    if (result.status === 200) {
+      dispatch(redirectToRoute(`/films/${data.filmId}`));
     }
+
   },
 );
 
-export const getFavoriteFilmsAction = createAsyncThunk<Film[] | undefined, undefined, {
+export const getFavoriteFilmsAction = createAsyncThunk<Film[], undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -171,7 +144,7 @@ export const getFavoriteFilmsAction = createAsyncThunk<Film[] | undefined, undef
   },
 );
 
-export const fetchChangeFavoriteFilmsAction = createAsyncThunk<Film | undefined, { filmId: number | undefined, status: number }, {
+export const fetchChangeFavoriteFilmsAction = createAsyncThunk<Film, { filmId: number | undefined, status: number }, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance

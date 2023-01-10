@@ -7,16 +7,22 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getFilm, isFilmLoading} from '../../store/film-data/selector';
 import {fetchFilmAction} from '../../store/api-actions';
 import Load from '../../components/load/load';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 
 const AddReviewScreen: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const film = useAppSelector(getFilm);
-  const isLoading = useAppSelector(isFilmLoading);
   const {id} = useParams();
   useEffect(() => {
     dispatch(fetchFilmAction(id));
   }, [id]);
+
+  const dispatch = useAppDispatch();
+  const film = useAppSelector(getFilm);
+  const isLoading = useAppSelector(isFilmLoading);
+
+  if (id === undefined || film === undefined) {
+    return <NotFoundScreen/>;
+  }
 
   if (isLoading) {
     return <Load/>;

@@ -5,6 +5,8 @@ import {getFilm} from '../../store/film-data/selector';
 import {isReviewPosting} from '../../store/film-reviews-data/selector';
 
 const STARS_COUNT = 10;
+const MAX_COMMENT_LEN = 400;
+const MIN_COMMENT_LEN = 50;
 
 const ReviewForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -64,15 +66,15 @@ const ReviewForm: React.FC = () => {
           placeholder="Review text"
           onChange={handleCommentChange}
           value={comment}
-          maxLength={400}
-          minLength={50}
+          maxLength={MAX_COMMENT_LEN}
+          minLength={MIN_COMMENT_LEN}
           required
         >
         </textarea>
         <div className="add-review__submit">
           <button
             className="add-review__btn" type="submit"
-            disabled={comment.length < 50 || comment.length > 400 || isCommentPosting}
+            disabled={comment.length < MIN_COMMENT_LEN || comment.length > MAX_COMMENT_LEN || isCommentPosting}
           >
             Post
           </button>

@@ -4,8 +4,7 @@ import {fetchPromoFilm, fetchFilmsAction, fetchChangeFavoriteFilmsAction} from '
 import {GeneralData} from '../../types/state';
 import {Film} from '../../types/film';
 
-const PAGE_SIZE = 8;
-
+const FILMS_ON_PAGE_COUNT = 8;
 
 const initialState = {
   allFilms: [],
@@ -15,9 +14,9 @@ const initialState = {
   currentGenre: 'All genres',
   pageFilms: [],
   page: 1,
+  promoLoading: false,
   isLastPage: false,
   allFilmsLoading: false,
-  promoLoading: false,
 } as GeneralData;
 
 function sortFilmsByGenre(allFilms: Film[], genre: string) {
@@ -37,20 +36,20 @@ export const generalData = createSlice({
   name: NameSpace.GeneralData,
   initialState,
   reducers: {
-    turnToNextPageAction: (state) => {
+    showMoreFilmsAction: (state) => {
       if (!state.isLastPage) {
         const genreFilms = state.genreToFilms[state.currentGenre];
-        state.pageFilms = [...state.pageFilms, ...genreFilms.slice(state.page * PAGE_SIZE, (state.page + 1) * PAGE_SIZE)];
         state.page += 1;
-        state.isLastPage = genreFilms.length <= (state.page * PAGE_SIZE);
+        state.pageFilms = [...genreFilms.slice(0, state.page * FILMS_ON_PAGE_COUNT)];
+        state.isLastPage = genreFilms.length <= (state.page * FILMS_ON_PAGE_COUNT);
       }
     },
     changeGenreAction: (state, action) => {
-      state.currentGenre = action.payload;
-      state.page = 1;
       const genreFilms = state.genreToFilms[action.payload];
-      state.pageFilms = genreFilms.slice(0, PAGE_SIZE);
-      state.isLastPage = genreFilms.length <= PAGE_SIZE;
+      state.page = 1;
+      state.currentGenre = action.payload;
+      state.pageFilms = genreFilms.slice(0, FILMS_ON_PAGE_COUNT);
+      state.isLastPage = genreFilms.length <= FILMS_ON_PAGE_COUNT;
     }
   },
   extraReducers(builder) {
@@ -59,18 +58,23 @@ export const generalData = createSlice({
         state.allFilmsLoading = true;
       })
       .addCase(fetchFilmsAction.fulfilled, (state, action) => {
+        state.allFilmsLoading = false;
         state.allFilms = action.payload;
         state.genresList = extractAvailableGenres(action.payload);
         state.genreToFilms = {'All genres': action.payload};
         for (const genre of state.genresList) {
           state.genreToFilms[genre] = sortFilmsByGenre(action.payload, genre);
         }
-        state.pageFilms = action.payload.slice(0, PAGE_SIZE);
-        state.isLastPage = action.payload.length <= PAGE_SIZE;
-        state.allFilmsLoading = false;
+        state.isLastPage = action.payload.length <= FILMS_ON_PAGE_COUNT;
+        state.pageFilms = action.payload.slice(0, FILMS_ON_PAGE_COUNT);
       })
       .addCase(fetchFilmsAction.rejected, (state, action) => {
         state.allFilmsLoading = false;
+      })
+      .addCase(fetchChangeFavoriteFilmsAction.fulfilled, (state, action) => {
+        if (state.promo?.id === action.payload.id) {
+          state.promo.isFavorite = action.payload.isFavorite;
+        }
       })
       .addCase(fetchPromoFilm.pending, (state) => {
         state.promoLoading = true;
@@ -81,13 +85,8 @@ export const generalData = createSlice({
       })
       .addCase(fetchPromoFilm.rejected, (state, action) => {
         state.promoLoading = false;
-      })
-      .addCase(fetchChangeFavoriteFilmsAction.fulfilled, (state, action) => {
-        if (state.promo?.id === action.payload.id) {
-          state.promo.isFavorite = action.payload.isFavorite;
-        }
       });
   }
 });
 
-export const {changeGenreAction, turnToNextPageAction} = generalData.actions;
+export const {changeGenreAction, showMoreFilmsAction} = generalData.actions;

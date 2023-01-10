@@ -34,7 +34,7 @@ function SignIn(): JSX.Element {
   const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (isPasswordValid() && isLoginValid()) {
+    if (loginRef.current !== null && passwordRef.current !== null && isPasswordValid() && isLoginValid()) {
       onSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,
