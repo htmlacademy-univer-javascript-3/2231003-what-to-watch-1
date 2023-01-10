@@ -65,7 +65,7 @@ const MainScreen: React.FC = () => {
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">The {promoFilm?.name}</h2>
+              <h2 className="film-card__title">{promoFilm?.name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{promoFilm?.genre}</span>
                 <span className="film-card__year">{promoFilm?.released}</span>

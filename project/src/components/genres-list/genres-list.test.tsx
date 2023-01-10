@@ -9,7 +9,6 @@ import {makeFakeFilm} from '../../utils/mocks';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
-const mockFilms = [makeFakeFilm()];
 
 
 const store = mockStore({
@@ -26,7 +25,7 @@ jest.mock('react', () => ({
   useEffect: jest.fn()
 }))
 
-describe('Component: MyList', () => {
+describe('Component: GenresList', () => {
   it('should render correctly', () => {
     render(
       <Provider store={store}>

@@ -18,8 +18,8 @@ export const fetchFilmsAction = createAsyncThunk<Film[], undefined, {
 }>(
   'data/fetchFilms',
   async (_arg, {dispatch, extra: api}) => {
-    const response = await api.get<Film[]>(APIRoute.Films);
-    return response.data;
+      const response = await api.get<Film[]>(APIRoute.Films);
+      return response.data;
   },
 );
 
@@ -81,8 +81,8 @@ export const fetchFilmAction = createAsyncThunk<Film, string | undefined, {
 }>(
   'data/fetchFilm',
   async (id, {dispatch, extra: api}) => {
-    const response = await api.get<Film>(`/films/${id}`);
-    return response.data;
+      const response = await api.get<Film>(`/films/${id}`);
+      return response.data;
   },
 );
 
