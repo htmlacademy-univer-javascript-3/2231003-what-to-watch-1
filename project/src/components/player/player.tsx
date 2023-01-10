@@ -9,6 +9,7 @@ type Props = {
 const Player: React.FC<Props> = (props) => {
   const {film, isPlaying} = props;
   const playerRef = useRef<HTMLVideoElement | null>(null);
+  const muted = true;
 
   useEffect(() => {
     if (!playerRef) {
@@ -22,7 +23,7 @@ const Player: React.FC<Props> = (props) => {
 
   }, [isPlaying]);
 
-  return <video ref={playerRef} width="280" height="175" src={film.videoLink} poster={film.previewImage} muted={true}/>;
+  return <video ref={playerRef} width="280" height="175" src={film.videoLink} poster={film.previewImage} muted={muted}/>;
 };
 
 export default Player;

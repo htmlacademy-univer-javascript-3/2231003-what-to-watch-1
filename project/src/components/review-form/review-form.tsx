@@ -2,12 +2,16 @@ import React, {Fragment, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {addReviewAction} from '../../store/api-actions';
 import {getFilm} from '../../store/film-data/selector';
+import {isReviewPosting} from '../../store/film-reviews-data/selector';
 
 const STARS_COUNT = 10;
+const MAX_COMMENT_LEN = 400;
+const MIN_COMMENT_LEN = 50;
 
 const ReviewForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const film = useAppSelector(getFilm);
+  const isCommentPosting = useAppSelector(isReviewPosting);
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
 
@@ -58,16 +62,22 @@ const ReviewForm: React.FC = () => {
           className="add-review__textarea"
           name="review-text"
           id="review-text"
+          data-testid='textarea'
           placeholder="Review text"
           onChange={handleCommentChange}
           value={comment}
-          maxLength={400}
-          minLength={50}
+          maxLength={MAX_COMMENT_LEN}
+          minLength={MIN_COMMENT_LEN}
           required
         >
         </textarea>
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit">Post</button>
+          <button
+            className="add-review__btn" type="submit"
+            disabled={comment.length < MIN_COMMENT_LEN || comment.length > MAX_COMMENT_LEN || isCommentPosting}
+          >
+            Post
+          </button>
         </div>
 
       </div>

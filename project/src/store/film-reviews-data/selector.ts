@@ -4,3 +4,4 @@ import { Comment } from '../../types/comment';
 
 export const areReviewsLoading = (state: State): boolean => state[NameSpace.FilmReviewsData].reviewsLoading;
 export const getReviews = (state: State): Comment[] => state[NameSpace.FilmReviewsData].reviews;
+export const isReviewPosting = (state: State): boolean => state[NameSpace.FilmReviewsData].isReviewPosting;

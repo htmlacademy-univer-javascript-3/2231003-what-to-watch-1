@@ -103,13 +103,14 @@ export const fetchReviewsAction = createAsyncThunk<Comments, number, {
   state: State,
   extra: AxiosInstance
 }>(
-  'FETCH_FILM_REVIEWS',
+  'data/fetchReviews',
   async (id, {dispatch, extra: api}) => {
     const response = await api.get<Comment[]>(`/comments/${id}`);
     return {
       filmId: id,
       comments: response.data
     } as Comments;
+
   },
 );
 
@@ -120,17 +121,14 @@ export const addReviewAction = createAsyncThunk<void, SendComment, {
 }>(
   'data/addReview',
   async (data, {dispatch, extra: api}) => {
-    try {
-      const result = await api.post(`/comments/${data.filmId}`, {
-        comment: data.comment,
-        rating: data.rating
-      });
-      if (result.status === 200) {
-        dispatch(redirectToRoute(`/films/${data.filmId}`));
-      }
-    } catch {
-      dispatch(redirectToRoute('/*'));
+    const result = await api.post(`/comments/${data.filmId}`, {
+      comment: data.comment,
+      rating: data.rating
+    });
+    if (result.status === 200) {
+      dispatch(redirectToRoute(`/films/${data.filmId}`));
     }
+
   },
 );
 

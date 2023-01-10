@@ -17,26 +17,17 @@ const store = mockStore({
   AUTH_INFO: {
     authorizationStatus: AuthorizationStatus.Auth
   },
-  GENERAL_DATA: {
-    allFilms: mockFilms,
-    genresList: ['All genres'],
-    genreToFilms: {},
-    promo: mockFilm,
-    currentGenre: 'All genres',
-    pageFilms: [],
-    page: 1,
-    isLastPage: false,
-    allFilmsLoading: false,
-    promoLoading: false,
-  },
-  FILM_REVIEWS_DATA: {
-    reviewsFilmId: 0,
-    reviewsLoading: false,
-    reviews: []
+  FILM_DATA: {
+    currentFilm: mockFilm,
+    filmLoading: false,
+    similarFilms: [],
+    similarLoading: false,
   },
   FAVORITE_DATA: {
     favoriteFilms: [],
-    favoriteLoading: false,
+    favoritesCount: 0,
+    areFavoriteLoading: false,
+    areFavoriteOutdated: false,
   }
 });
 
@@ -45,17 +36,18 @@ jest.mock('react', () => ({
   useEffect: jest.fn()
 }))
 
-describe('Component: Main', () => {
+describe('Component: MoviePage', () => {
   it('should render correctly', () => {
     render(
       <Provider store={store}>
-      <HistoryRouter history={history}>
-        <MainScreen/>
+        <HistoryRouter history={history}>
+          <MoviePageScreen/>
         </HistoryRouter>
-        </Provider>,
+      </Provider>,
     );
 
     expect(screen.getByText('Play')).toBeInTheDocument();
-    expect(screen.getByText(/Catalog/i)).toBeInTheDocument();
+    expect(screen.getByText(mockFilm.name)).toBeInTheDocument();
+    expect(screen.getByText(/More like this/i)).toBeInTheDocument();
   });
 });

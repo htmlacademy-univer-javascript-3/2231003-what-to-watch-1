@@ -15,6 +15,8 @@ import {getFilm, getSimilarFilms, areSimilarLoading, isFilmLoading} from '../../
 import {getAuthorizationStatus} from '../../store/user-process/selector';
 import MovieInList from '../../components/add-movie-in-list/add-movie-in-list';
 
+const MAX_SIMILAR_FILMS_COUNT = 4;
+
 const MoviePageScreen: React.FC = () => {
   const {id} = useParams();
 
@@ -33,11 +35,12 @@ const MoviePageScreen: React.FC = () => {
   const isLoading = useAppSelector(isFilmLoading);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
-  if (areSimilarFilmsLoading || isLoading) {
-    return <Load/>;
-  }
   if (id === undefined || film === undefined || getSimilarFilms === undefined) {
     return <NotFoundScreen/>;
+  }
+
+  if (areSimilarFilmsLoading || isLoading) {
+    return <Load/>;
   }
 
   return (
@@ -94,7 +97,7 @@ const MoviePageScreen: React.FC = () => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList films={similarFilms.slice(0, 4)}/>
+          <FilmList films={similarFilms.slice(0, MAX_SIMILAR_FILMS_COUNT)}/>
         </section>
         <Footer/>
       </div>
