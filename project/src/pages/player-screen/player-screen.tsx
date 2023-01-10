@@ -39,7 +39,7 @@ const PlayerScreen: React.FC = () => {
   const [progress, setProgress] = useState(0);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  if (id === undefined || film === undefined) {
+  if (film === undefined) {
     return <NotFoundScreen/>;
   }
   const handleProgressBar = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {

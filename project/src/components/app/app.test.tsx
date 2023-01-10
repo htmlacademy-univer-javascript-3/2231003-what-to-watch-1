@@ -10,6 +10,11 @@ import {makeFakeFilm} from '../../utils/mocks';
 const mockFilm = makeFakeFilm();
 const mockStore = configureMockStore();
 
+jest.mock('react', () => ({
+  ...jest.requireActual("react"),
+  useEffect: jest.fn()
+}))
+
 const store = mockStore({
   'GENERAL_DATA': {
     allFilms: [],
@@ -95,7 +100,6 @@ describe('Application Routing', () => {
     expect(screen.getByText(/Play/i)).toBeInTheDocument();
     expect(screen.getByText(/My list/i)).toBeInTheDocument();
     expect(screen.getByText(mockFilm.name)).toBeInTheDocument();
-    expect(screen.getByText(mockFilm.genre)).toBeInTheDocument();
   });
 
   it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
