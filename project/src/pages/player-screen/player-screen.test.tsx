@@ -9,7 +9,6 @@ import {makeFakeFilm} from '../../utils/mocks';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
-const mockFilms = [makeFakeFilm()];
 const mockFilm = makeFakeFilm();
 
 
@@ -32,9 +31,9 @@ const store = mockStore({
 });
 
 jest.mock('react', () => ({
-  ...jest.requireActual("react"),
+  ...jest.requireActual('react'),
   useEffect: jest.fn()
-}))
+}));
 
 describe('Component: Player', () => {
   it('should render correctly', () => {

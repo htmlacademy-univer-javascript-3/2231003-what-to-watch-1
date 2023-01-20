@@ -1,8 +1,8 @@
 import {store} from '../store/index.js';
 import {AuthorizationStatus} from '../const';
-import {Film} from "./film";
-import {Comment} from "./comment";
-import {UserData} from "./user-data";
+import {Film} from './film';
+import {Comment} from './comment';
+import {UserData} from './user-data';
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus;

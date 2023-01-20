@@ -36,7 +36,7 @@ const MainScreen: React.FC = () => {
   const areLoading = useAppSelector(areReviewsLoading);
   const changeGenreHandle = (genre: string) => dispatch(changeGenreAction(genre));
 
-  if (films === undefined || promoFilm === undefined) {
+  if (films === undefined && !isFilmLoading || promoFilm === undefined && !promoLoading) {
     return <NotFoundScreen/>;
   }
 

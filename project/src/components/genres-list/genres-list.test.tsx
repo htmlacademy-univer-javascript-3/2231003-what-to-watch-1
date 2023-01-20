@@ -5,7 +5,6 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import HistoryRouter from '../../components/history/history';
 import {AuthorizationStatus} from '../../const';
 import GenresList from './genres-list';
-import {makeFakeFilm} from '../../utils/mocks';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
@@ -21,9 +20,9 @@ const store = mockStore({
 });
 
 jest.mock('react', () => ({
-  ...jest.requireActual("react"),
+  ...jest.requireActual('react'),
   useEffect: jest.fn()
-}))
+}));
 
 describe('Component: GenresList', () => {
   it('should render correctly', () => {

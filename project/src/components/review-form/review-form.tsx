@@ -74,7 +74,7 @@ const ReviewForm: React.FC = () => {
         <div className="add-review__submit">
           <button
             className="add-review__btn" type="submit"
-            disabled={comment.length < MIN_COMMENT_LEN || comment.length > MAX_COMMENT_LEN || isCommentPosting}
+            disabled={comment.length < MIN_COMMENT_LEN || comment.length > MAX_COMMENT_LEN || isCommentPosting || rating === ''}
           >
             Post
           </button>

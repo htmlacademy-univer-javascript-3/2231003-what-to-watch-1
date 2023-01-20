@@ -11,9 +11,9 @@ const mockFilm = makeFakeFilm();
 const mockStore = configureMockStore();
 
 jest.mock('react', () => ({
-  ...jest.requireActual("react"),
+  ...jest.requireActual('react'),
   useEffect: jest.fn()
-}))
+}));
 
 const store = mockStore({
   'GENERAL_DATA': {
@@ -90,7 +90,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "MoviePageScreen" when user navigate to "/films/:id"', () => {
-    history.push("/films/0");
+    history.push('/films/0');
 
     render(fakeApp);
 
@@ -112,7 +112,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "AddReviewScreen" when user navigate to "/films/:id/review"', () => {
-    history.push("/films/0/review");
+    history.push('/films/0/review');
 
     render(fakeApp);
 
@@ -120,7 +120,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "PlayerScreen" when user navigate to "/player/:id"', () => {
-    history.push("/player/0");
+    history.push('/player/0');
 
     render(fakeApp);
 

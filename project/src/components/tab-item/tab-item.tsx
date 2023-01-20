@@ -14,11 +14,13 @@ const TabItem: React.FC<Props> = (props) => {
   return (
     <li className={`film-nav__item ${isActive ? 'film-nav__item--active' : ''}`}>
       <a className="film-nav__link" onClick={
-        (event) => {
+        (event) =>
+        {
           event.preventDefault();
           onClick(tabType);
         }
-      }>
+      }
+      >
         {tabType}
       </a>
     </li>

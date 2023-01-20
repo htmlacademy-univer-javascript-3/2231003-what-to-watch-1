@@ -28,11 +28,11 @@ describe('Reducer: reviewsData', () => {
   describe('fetchReviewsAction test', () => {
     it('should update reviews and reviewsLoading to false if fetchReviewsAction fulfilled', () => {
       state.reviewsLoading = true;
-      const fakeComment = makeFakeComment()
+      const fakeComment = makeFakeComment();
       const comments = {
         filmId: fakeComment.id,
         comments: [fakeComment]
-      }
+      };
       expect(reviewsData.reducer(state, {
         type: fetchReviewsAction.fulfilled.type,
         payload: {filmId: fakeComment.id, comments: comments}

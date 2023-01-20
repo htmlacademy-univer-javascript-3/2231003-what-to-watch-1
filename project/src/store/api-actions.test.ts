@@ -17,7 +17,7 @@ import {State} from '../types/state';
 import {AuthData} from '../types/auth-data';
 import {makeFakeFilm, makeFakeComment} from '../utils/mocks';
 import {redirectToRoute} from './action';
-import {SendComment} from "../types/comment";
+import {SendComment} from '../types/comment';
 
 describe('Async actions', () => {
   const mockFilm = makeFakeFilm();
@@ -183,7 +183,7 @@ describe('Async actions', () => {
     const postData = {
       filmId: 2,
       status: 1
-    }
+    };
 
     mockAPI
       .onPost('/favorite/2/1')

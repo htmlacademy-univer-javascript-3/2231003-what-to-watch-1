@@ -1,4 +1,4 @@
-import {useRef, FormEvent} from 'react';
+import {useRef, FormEvent, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
@@ -11,9 +11,11 @@ import {getAuthorizationStatus} from '../../store/user-process/selector';
 function SignIn(): JSX.Element {
   const navigate = useNavigate();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  if (authorizationStatus === AuthorizationStatus.Auth) {
-    navigate(AppRoute.Root);
-  }
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      navigate(AppRoute.Root);
+    }
+  }, []);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const isPasswordValid = () => (
@@ -31,7 +33,7 @@ function SignIn(): JSX.Element {
     dispatch(loginAction(authData));
   };
 
-  const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null && isPasswordValid() && isLoginValid()) {
@@ -41,6 +43,9 @@ function SignIn(): JSX.Element {
       });
     }
   };
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    navigate(AppRoute.Root);
+  }
 
   return (
     <div className="user-page">
@@ -50,7 +55,7 @@ function SignIn(): JSX.Element {
       </header>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form" onSubmit={submitHandler}>
+        <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" data-testid='email' ref={loginRef}/>

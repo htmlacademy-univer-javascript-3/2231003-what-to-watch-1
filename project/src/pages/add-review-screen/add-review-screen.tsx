@@ -20,7 +20,7 @@ const AddReviewScreen: React.FC = () => {
   const film = useAppSelector(getFilm);
   const isLoading = useAppSelector(isFilmLoading);
 
-  if (id === undefined || film === undefined) {
+  if (id === undefined || film === undefined && !isLoading) {
     return <NotFoundScreen/>;
   }
 

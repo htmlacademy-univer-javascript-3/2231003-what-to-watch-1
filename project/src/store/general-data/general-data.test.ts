@@ -75,7 +75,7 @@ describe('Reducer: generalData', () => {
       const mockFilm1 = makeFakeFilm();
       mockFilm1.isFavorite = false;
       const mockFilm2 = makeFakeFilm();
-      mockFilm2.isFavorite = true
+      mockFilm2.isFavorite = true;
       mockFilm2.id = mockFilm1.id;
       state.promo = mockFilm1;
       expect(generalData.reducer(state, {
@@ -90,7 +90,7 @@ describe('Reducer: generalData', () => {
       mockFilm1.isFavorite = false;
       const mockFilm2 = makeFakeFilm();
       mockFilm2.id = 2;
-      mockFilm2.isFavorite = true
+      mockFilm2.isFavorite = true;
       state.promo = mockFilm1;
       expect(generalData.reducer(state, {
         type: fetchChangeFavoriteFilmsAction.fulfilled.type,
@@ -102,12 +102,13 @@ describe('Reducer: generalData', () => {
 
   describe('changeGenreAction test', () => {
     it('should change genre', () => {
-      if (FILMS[0].genre === FILMS[1].genre)
-        FILMS[0].genre += "kek";
+      if (FILMS[0].genre === FILMS[1].genre){
+        FILMS[0].genre += 'kek';
+      }
       state.genresList = ['All genres', FILMS[0].genre, FILMS[1].genre];
       state.genreToFilms = {
         'All genres': FILMS,
-      }
+      };
       state.genreToFilms[FILMS[0].genre] = [FILMS[0]];
       state.genreToFilms[FILMS[1].genre] = [FILMS[1]];
 
@@ -124,7 +125,7 @@ describe('Reducer: generalData', () => {
           isLastPage: true,
           allFilmsLoading: false,
         });
-    })
+    });
   });
 
   describe('fetchFilmsAction test', () => {
