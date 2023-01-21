@@ -10,14 +10,14 @@ const FilmList: React.FC<Props> = (props) => {
   const {films} = props;
   const [, setActiveFilm] = useState({});
 
-  const activeFilmHandler = (film: Film) => {
+  const handleActiveFilm = (film: Film) => {
     setActiveFilm(film);
   };
 
   return (
-    <div className="catalog__films-list">
-      {films?.map((film) => <FilmCard key={film.id} film={film} setActiveFilm={activeFilmHandler}/>)}
-    </div>
+    <>
+      {films?.map((film) => <FilmCard key={film.id} film={film} setActiveFilm={handleActiveFilm}/>)}
+    </>
   );
 };
 

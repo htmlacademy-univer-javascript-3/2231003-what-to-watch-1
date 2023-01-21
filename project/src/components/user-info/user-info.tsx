@@ -12,7 +12,7 @@ const UserInfo: React.FC = () => {
   const user = useAppSelector(getUserData);
   const dispatch = useAppDispatch();
 
-  const signOutClickHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleSignOutClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     dispatch(logoutAction());
   };
@@ -34,7 +34,7 @@ const UserInfo: React.FC = () => {
         </div>
       </li>
       <li className="user-block__item">
-        <a className="user-block__link" onClick={signOutClickHandler}>Sign out</a>
+        <a className="user-block__link" onClick={handleSignOutClick}>Sign out</a>
       </li>
     </ul>
   );

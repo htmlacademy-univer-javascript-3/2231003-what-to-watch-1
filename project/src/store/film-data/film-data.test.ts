@@ -65,7 +65,7 @@ describe('Reducer: film', () => {
       const mockFilm1 = makeFakeFilm();
       mockFilm1.isFavorite = false;
       const mockFilm2 = makeFakeFilm();
-      mockFilm2.isFavorite = true
+      mockFilm2.isFavorite = true;
       mockFilm2.id = mockFilm1.id;
       state.currentFilm = mockFilm1;
       expect(filmData.reducer(state, {
@@ -80,7 +80,7 @@ describe('Reducer: film', () => {
       mockFilm1.isFavorite = false;
       const mockFilm2 = makeFakeFilm();
       mockFilm2.id = 2;
-      mockFilm2.isFavorite = true
+      mockFilm2.isFavorite = true;
       state.currentFilm = mockFilm1;
       expect(filmData.reducer(state, {
         type: fetchChangeFavoriteFilmsAction.fulfilled.type,

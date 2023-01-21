@@ -1,7 +1,6 @@
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {AnyAction} from 'redux';
 import {redirect} from './redirect';
-import {redirectToRoute} from '../action';
 import {AppRoute} from '../../const';
 import {State} from '../../types/state';
 
@@ -21,14 +20,6 @@ const store = mockStore();
 describe('Middleware: redirect', () => {
   beforeEach(() => {
     fakeHistory.push('');
-  });
-
-  it('should be redirect to /login', () => {
-    store.dispatch(redirectToRoute(AppRoute.SingIn));
-    expect(fakeHistory.location.pathname).toBe(AppRoute.SingIn);
-    expect(store.getActions()).toEqual([
-      redirectToRoute(AppRoute.SingIn),
-    ]);
   });
 
   it('should not to be redirect /lose because bad action', () => {

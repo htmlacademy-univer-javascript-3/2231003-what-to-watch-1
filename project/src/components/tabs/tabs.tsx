@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Tab} from '../../const';
-import TabItem from '../tab/tabItem';
+import TabItem from '../tab-item/tab-item';
 import OverviewTab from './overview-tab';
 import DetailsTab from './details-tab';
 import ReviewsTab from './reviews-tab';

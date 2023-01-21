@@ -41,9 +41,9 @@ const store = mockStore({
 });
 
 jest.mock('react', () => ({
-  ...jest.requireActual("react"),
+  ...jest.requireActual('react'),
   useEffect: jest.fn()
-}))
+}));
 
 describe('Component: Main', () => {
   it('should render correctly', () => {

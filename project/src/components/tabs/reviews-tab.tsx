@@ -23,7 +23,7 @@ const ReviewsTab: React.FC = () => {
                 <time className="review__date">{getFormatDate(comment.date)}</time>
               </footer>
             </blockquote>
-            <div className="review__rating">{comment.rating}</div>
+            <div className="review__rating">{comment.rating.toFixed(1)}</div>
           </div>
         ))}
       </div>

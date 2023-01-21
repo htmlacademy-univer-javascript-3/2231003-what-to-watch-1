@@ -19,12 +19,14 @@ import MovieInList from '../../components/add-movie-in-list/add-movie-in-list';
 import {changeGenreAction, showMoreFilmsAction} from '../../store/general-data/general-data';
 import {areReviewsLoading} from '../../store/film-reviews-data/selector';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import {fetchPromoFilm, getFavoriteFilmsAction} from "../../store/api-actions";
 
 const ALL_GENRES = 'All genres';
 
 const MainScreen: React.FC = () => {
   useEffect(() => {
     changeGenreHandle(ALL_GENRES);
+    dispatch(fetchPromoFilm());
   }, []);
 
   const dispatch = useAppDispatch();
@@ -36,7 +38,7 @@ const MainScreen: React.FC = () => {
   const areLoading = useAppSelector(areReviewsLoading);
   const changeGenreHandle = (genre: string) => dispatch(changeGenreAction(genre));
 
-  if (films === undefined || promoFilm === undefined) {
+  if (films === undefined && !isFilmLoading || promoFilm === undefined && !promoLoading) {
     return <NotFoundScreen/>;
   }
 

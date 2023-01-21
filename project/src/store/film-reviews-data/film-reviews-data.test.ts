@@ -20,23 +20,25 @@ describe('Reducer: reviewsData', () => {
       .toEqual({
         reviewsFilmId: 0,
         reviewsLoading: false,
-        reviews: []
+        reviews: [],
+        isReviewPosting: false,
       });
   });
 
   describe('fetchReviewsAction test', () => {
     it('should update reviews and reviewsLoading to false if fetchReviewsAction fulfilled', () => {
       state.reviewsLoading = true;
-      const fakeComment = makeFakeComment()
+      const fakeComment = makeFakeComment();
       const comments = {
         filmId: fakeComment.id,
         comments: [fakeComment]
-      }
+      };
       expect(reviewsData.reducer(state, {
         type: fetchReviewsAction.fulfilled.type,
         payload: {filmId: fakeComment.id, comments: comments}
       }))
         .toEqual({
+          isReviewPosting: false,
           reviews: comments,
           reviewsFilmId: fakeComment.id,
           reviewsLoading: false,
@@ -45,6 +47,7 @@ describe('Reducer: reviewsData', () => {
     it('should update reviewsLoading to true if fetchReviewsAction pending', () => {
       expect(reviewsData.reducer(state, {type: fetchReviewsAction.pending.type}))
         .toEqual({
+          isReviewPosting: false,
           reviewsFilmId: 0,
           reviewsLoading: true,
           reviews: []
@@ -54,6 +57,7 @@ describe('Reducer: reviewsData', () => {
       state.reviewsLoading = true;
       expect(reviewsData.reducer(state, {type: fetchReviewsAction.rejected.type}))
         .toEqual({
+          isReviewPosting: false,
           reviewsFilmId: 0,
           reviewsLoading: false,
           reviews: []

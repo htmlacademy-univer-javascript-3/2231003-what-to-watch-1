@@ -1,5 +1,5 @@
 import React, {useEffect, useState,} from 'react';
-import {Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {Film} from '../../types/film';
 import Player from '../player/player';
 
@@ -14,6 +14,7 @@ const FilmCard: React.FC<Props> = (props) => {
   const {film, setActiveFilm} = props;
   const [isPlay, setPlay] = useState(false);
   const [needPlay, setNeedPlay] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let needUpdate = true;
@@ -41,12 +42,13 @@ const FilmCard: React.FC<Props> = (props) => {
         setNeedPlay(true);
       }}
       onMouseLeave={handleUnsetActiveFilm}
+      onClick={() => navigate(`/films/${film.id}`)}
     >
       <div className="small-film-card__image">
         <Player film={film} isPlaying={isPlay}/>
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${film.id}`}>{film.name}</Link>
+        {film.name}
       </h3>
     </article>
   );

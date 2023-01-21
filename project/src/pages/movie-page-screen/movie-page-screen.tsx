@@ -23,7 +23,7 @@ const MoviePageScreen: React.FC = () => {
   useEffect(() => {
     dispatch(fetchFilmAction(id));
     dispatch(fetchSimilarAction(id));
-    if (id !== undefined){
+    if (id !== undefined) {
       dispatch(fetchReviewsAction(+id));
     }
   }, [id]);
@@ -35,7 +35,7 @@ const MoviePageScreen: React.FC = () => {
   const isLoading = useAppSelector(isFilmLoading);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
-  if (id === undefined || film === undefined || getSimilarFilms === undefined) {
+  if (film === undefined && !isLoading || similarFilms === undefined && !areSimilarFilmsLoading) {
     return <NotFoundScreen/>;
   }
 
@@ -67,18 +67,21 @@ const MoviePageScreen: React.FC = () => {
               </p>
 
               <div className="film-card__buttons">
-                <Link to={`/player/${film.id}`} className="btn btn--play film-card__button" type="button">
+                <Link to={`/player/${film?.id}`} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </Link>
-                <MovieInList film={film}/>
-                {
-                  authorizationStatus === AuthorizationStatus.Auth && (
-                    <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
-                  )
-                }
+                {film !== undefined &&
+                  <>
+                    <MovieInList film={film}/>
+                    {
+                      authorizationStatus === AuthorizationStatus.Auth && (
+                        <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
+                      )
+                    }
+                  </>}
               </div>
             </div>
           </div>
@@ -97,7 +100,9 @@ const MoviePageScreen: React.FC = () => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList films={similarFilms.slice(0, MAX_SIMILAR_FILMS_COUNT)}/>
+          <div className='catalog__films-list'>
+            <FilmList films={similarFilms.slice(0, MAX_SIMILAR_FILMS_COUNT)}/>
+          </div>
         </section>
         <Footer/>
       </div>

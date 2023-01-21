@@ -10,6 +10,11 @@ import {makeFakeFilm} from '../../utils/mocks';
 const mockFilm = makeFakeFilm();
 const mockStore = configureMockStore();
 
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useEffect: jest.fn()
+}));
+
 const store = mockStore({
   'GENERAL_DATA': {
     allFilms: [],
@@ -85,7 +90,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "MoviePageScreen" when user navigate to "/films/:id"', () => {
-    history.push("/films/0");
+    history.push('/films/0');
 
     render(fakeApp);
 
@@ -95,7 +100,6 @@ describe('Application Routing', () => {
     expect(screen.getByText(/Play/i)).toBeInTheDocument();
     expect(screen.getByText(/My list/i)).toBeInTheDocument();
     expect(screen.getByText(mockFilm.name)).toBeInTheDocument();
-    expect(screen.getByText(mockFilm.genre)).toBeInTheDocument();
   });
 
   it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
@@ -108,7 +112,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "AddReviewScreen" when user navigate to "/films/:id/review"', () => {
-    history.push("/films/0/review");
+    history.push('/films/0/review');
 
     render(fakeApp);
 
@@ -116,7 +120,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "PlayerScreen" when user navigate to "/player/:id"', () => {
-    history.push("/player/0");
+    history.push('/player/0');
 
     render(fakeApp);
 

@@ -19,7 +19,7 @@ const ListScreen: React.FC = () => {
   const films = useAppSelector(getFavoriteFilms);
   const areInLoading = useAppSelector(areFavoriteFilmsInLoading);
 
-  if (films === undefined) {
+  if (films === undefined && !areInLoading) {
     return <NotFoundScreen/>;
   }
 

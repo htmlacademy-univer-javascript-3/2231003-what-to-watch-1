@@ -25,9 +25,6 @@ export const createAPI = (): AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError) => {
-      if (error.response) {
-      }
-
       throw error;
     }
   );
